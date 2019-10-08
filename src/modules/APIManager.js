@@ -16,6 +16,9 @@ export default {
   getAll(database) {
     return fetch(`${remoteURL}/${database}`).then(e => e.json())
   },
+  getAllAndExpand(database, expanded) {
+    return fetch(`${remoteURL}/${database}?_expand=${expanded}`).then(e => e.json())
+  },
   delete(id, database) {
     return fetch(`${remoteURL}/${database}/${id}`, {
       method: "DELETE"
