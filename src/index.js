@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from "react-router-dom"
-import Nutshell from './components/Nutshell'
+import Spooky from './components/Spooky'
 import './index.css'
 
 ReactDOM.render(
   <Router>
-      <Nutshell />
+      <Spooky />
   </Router>
   , document.getElementById('root'))
