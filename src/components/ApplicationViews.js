@@ -15,14 +15,14 @@ export default class ApplicationViews extends Component {
         />
 
         <Route
-          path="/friends" render={props => {
+          path="/news" render={props => {
             return null
             // Remove null and return the component which will show list of friends
           }}
         />
 
         <Route
-          path="/messages" render={props => {
+          path="/events" render={props => {
             return null
             // Remove null and return the component which will show the messages
           }}
