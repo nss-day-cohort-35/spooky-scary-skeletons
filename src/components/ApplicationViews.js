@@ -1,5 +1,7 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
+//
+import Login from './auth/login';
 
 export default class ApplicationViews extends Component {
 
@@ -34,7 +36,7 @@ export default class ApplicationViews extends Component {
             // Remove null and return the component which will show the user's tasks
           }}
         />
-        
+
       </React.Fragment>
     );
   }
