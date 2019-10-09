@@ -1,5 +1,6 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
+import ChatList from './chatroom/ChatList'
 import EntryList from './Feed/EntryList'
 import EntryForm from './Feed/EntryForm'
 import Login from "./auth/Login";
@@ -12,7 +13,7 @@ export default class ApplicationViews extends Component {
 
         <Route
           exact path="/" render={props => {
-            return null
+            return <ChatList {...props}/> 
             // Remove null and return the component which will show news articles
           }}
         />
