@@ -1,0 +1,6 @@
+.container-cards{
+    height:400px;
+    width:auto;
+    border:1px solid #ccc;
+    overflow:auto; 
+}
