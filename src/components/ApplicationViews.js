@@ -1,6 +1,7 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
 import EntryList from './Feed/EntryList'
+import TaskList from './task/TaskList'
 import EntryForm from './Feed/EntryForm'
 import Login from "./auth/Login";
 
@@ -48,14 +49,12 @@ export default class ApplicationViews extends Component {
         <Route
           path="/tasks" render={props => {
             if (this.props.user) {
-              return null
-              {/*return <TasksList {...props} />;
-            */}
+              return <TaskList database="tasks" {...props} />
             } else {
               return <Redirect to="/login" />;
             }
           }}
-        />
+        />  
         {/* ---------login---------*/}
         <Route
           path="/login" render={props => {

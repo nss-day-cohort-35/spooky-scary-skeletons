@@ -11,3 +11,5 @@ class TaskCard extends Component {
         )
     }
 }
+
+export default TaskCard;

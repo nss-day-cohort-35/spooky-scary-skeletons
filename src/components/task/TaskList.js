@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import TaskCard from './TaskCard';
+import APIManager from '../../modules/APIManager';
 
 
 class TaskList extends Component {
@@ -7,6 +9,7 @@ class TaskList extends Component {
     };
 
     componentDidMount(){
+        console.log('TASK LIST: ComponentDidMount');
         APIManager.getAll("tasks").then((task) => {
             this.setState({
                 tasks: task
@@ -16,7 +19,18 @@ class TaskList extends Component {
 
 
     render() {
+        console.log('TASK LIST: Render');
         return(
+            <>
+            <div>
+                <button  type ='button'
+                         className = 'btn'
+                         onClick = {() => {
+                        this.props.history.push('/tasks/new')
+                    }}>
+                   Add Task
+                </button>
+            </div>
             <div>
                 {this.state.tasks.map(task => (
                     <TaskCard key = {task.id}
@@ -24,6 +38,9 @@ class TaskList extends Component {
                     />
                 ))}
             </div>
+            </>
         )
     }
 }
+
+export default TaskList;
