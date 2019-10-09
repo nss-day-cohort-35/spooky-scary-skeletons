@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 //import the components we will need
 import ChatCard from './ChatCard'
 import APIManager from '../../modules/APIManager'
 import { timeout } from 'q';
+import './Chat.css'
+
 
 class ClassList extends Component {
 
@@ -19,8 +22,8 @@ class ClassList extends Component {
         this.setState(stateToChange);
     };
 
-    constructNewMessage() {
-        console.log(stateToChange);
+    constructNewMessage = (event) => {
+        console.log("constructing");
         if (this.state.newMessage === "") {
             window.alert("Please input a message first.");
         } else {
@@ -33,11 +36,17 @@ class ClassList extends Component {
 
             APIManager.post(message, "messages")
             .then(() =>{
-                this.props.history.push("/")
+                APIManager.getAllAndExpand("messages","user")
+                .then((data) => {
+                    console.log(data);
+                    this.setState({ messages: data, loadingStatus:false, newMessage:""})
+                    ReactDOM.findDOMNode(this.refs.form).value = "";
+                })
             }
             )
         }
-    }
+        }
+    
 
     componentDidMount() {
 
@@ -58,7 +67,7 @@ class ClassList extends Component {
                     )}
                 </div>
                 <div className = "container-input">
-                    <input type = "text" className = "input-box" id = "newMessage" 
+                    <input type = "text" className = "input-box" ref="form" id = "newMessage" 
                     onChange = {this.handleFieldChange} placeholder = "Add Message Here!"></input>
                     <button type = "button" className = "container-button" 
                     disabled={this.state.loadingStatus}
