@@ -1,31 +1,39 @@
 const remoteURL = "http://localhost:5002"
 
-export default {
+/* filtering info here +> https://jsonapi.org/recommendations/ */
   /*
         Since the purpose of this module is to be used by
         all of the more specialized ones, then the string
         of `animals` should not be hard coded here.
   */
 
-  get(id, database) {
+
+const API = {
+  get: (id, database) => {
     return fetch(`${remoteURL}/${database}/${id}`).then(e => e.json())
   },
-  getAndExpand(id, database, expanded) {
+  getAndExpand: (id, database, expanded) => {
     return fetch(`${remoteURL}/${database}/${id}?_expand=${expanded}`).then(e => e.json())
   },
-  getAll(database) {
+  getAll: (database) => {
     return fetch(`${remoteURL}/${database}`).then(e => e.json())
   },
   getAllAndExpand(database, expanded) {
     return fetch(`${remoteURL}/${database}?_expand=${expanded}`).then(e => e.json())
   },
-  delete(id, database) {
+  getAndFilter: (database, key, value) => {
+    return fetch(`${remoteURL}/${database}?${key}=${value}`).then(e => e.json())
+  },
+  getFeed: (database, currentUser, friendsIdsString) => {
+    return fetch(`${remoteURL}/${database}?_expand=user&userId=${currentUser}${friendsIdsString}&_sort=date&_order=asc`).then(e => e.json())
+  },
+  delete: (id, database) => {
     return fetch(`${remoteURL}/${database}/${id}`, {
       method: "DELETE"
     })
       .then(result => result.json())
   },
-  post(newObject, database) {
+  post: (newObject, database) => {
     return fetch(`${remoteURL}/${database}`, {
       method: "POST",
       headers: {
@@ -34,7 +42,7 @@ export default {
       body: JSON.stringify(newObject)
     }).then(data => data.json())
   },
-  update(editedObject, database) {
+  update: (editedObject, database) => {
     return fetch(`${remoteURL}/${database}/${editedObject.id}`, {
       method: "PUT",
       headers: {
@@ -43,11 +51,21 @@ export default {
       body: JSON.stringify(editedObject)
     }).then(data => data.json());
   },
-  getFriend(id, database, expanded, type, initiate) {
+  getFriend: (id, database, expanded, type, initiate) => {
     return fetch(`${remoteURL}/${database}/${id}?_expand=${expanded}&${type}=${initiate}`).then(e => e.json())
   },
-  searchDatabase (search, database, type){
+  searchDatabase: (search, database, type) => {
     return fetch(`${remoteURL}/${database}?${type}_like=${search}`)
+    .then(result => result.json())
+  },
+  articles: (typedInput) => {
+    return fetch('https://newsapi.org/v2/everything?' +
+    `q=${typedInput}&` +
+    'from=2019-10-09&' +
+    'sortBy=popularity&' +
+    'apiKey=dff143f1fe5946c2a7a56f338917b58c')
     .then(result => result.json())
   }
 }
+
+export default API;
