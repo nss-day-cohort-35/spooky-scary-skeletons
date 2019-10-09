@@ -1,11 +1,11 @@
 const remoteURL = "http://localhost:5002"
 
 /* filtering info here +> https://jsonapi.org/recommendations/ */
-  /*
-        Since the purpose of this module is to be used by
-        all of the more specialized ones, then the string
-        of `animals` should not be hard coded here.
-  */
+/*
+      Since the purpose of this module is to be used by
+      all of the more specialized ones, then the string
+      of `animals` should not be hard coded here.
+*/
 
 
 const API = {
@@ -53,16 +53,30 @@ const API = {
   },
   searchDatabase: (search, database, type) => {
     return fetch(`${remoteURL}/${database}?${type}_like=${search}`)
-    .then(result => result.json())
+      .then(result => result.json())
   },
   articles: (typedInput) => {
     return fetch('https://newsapi.org/v2/everything?' +
-    `q=${typedInput}&` +
-    'from=2019-10-09&' +
-    'sortBy=popularity&' +
-    'apiKey=dff143f1fe5946c2a7a56f338917b58c')
-    .then(result => result.json())
-  }
+      `q=${typedInput}&` +
+      'from=2019-10-09&' +
+      // 'sortBy=popularity&' +
+      'apiKey=dff143f1fe5946c2a7a56f338917b58c')
+      .then(result => result.json())
+      .then(parsedObject => {
+        return parsedObject.articles;
+      });
+  },
+  events: (typedInput) => {
+    return fetch(`https://www.eventbriteapi.com/v3/events/search/?q=${typedInput}&location.address=nashville&token=U4TQ4FVUMOLUNIZEGIQX`, {
+      headers: {
+        Accept: "application/json"
+      }
+    })
+      .then(result => result.json())
+      .then(parsedObject => {
+        return parsedObject.events;
+      });
+  },
 }
 
 export default API;

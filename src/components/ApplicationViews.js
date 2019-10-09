@@ -16,8 +16,8 @@ export default class ApplicationViews extends Component {
             // Remove null and return the component which will show news articles
           }}
         />
-         {/* ---------articles---------*/}
-        <Route path="/articles" render={props => {
+        {/* ---------articles---------*/}
+        <Route exact path="/articles" render={props => {
           if (this.props.user) {
             return <EntryList database="articles" {...props} />
           } else {
@@ -35,8 +35,7 @@ export default class ApplicationViews extends Component {
         }}
         />
         {/* ---------events---------*/}
-        <Route
-          path="/events" render={props => {
+        <Route exact path="/events" render={props => {
             if (this.props.user) {
               return <EntryList database="events" {...props} />
             } else {
@@ -44,7 +43,17 @@ export default class ApplicationViews extends Component {
             }
           }}
         />
-      {/* ---------tasks---------*/}
+
+        <Route path="/events/new" render={props => {
+          if (this.props.user) {
+            return <EntryForm database="events" {...props} />
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+        />
+
+        {/* ---------tasks---------*/}
         <Route
           path="/tasks" render={props => {
             if (this.props.user) {

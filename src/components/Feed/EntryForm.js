@@ -9,11 +9,6 @@ class EntryForm extends Component {
     state = {
         searchResults: []
     };
-    searchAPI(evt) {
-        evt.persist();
-        console.log(evt)
-        API[this.props.database.json]().then(response => this.setState({ searchResults: [...response.articles] }))
-    }
 
     componentDidMount() {
         // let resultCard;
@@ -28,12 +23,18 @@ class EntryForm extends Component {
     }
 
     render() {
+        let database = this.props.database
+        const searchAPI = (evt) => {
+            if (evt.charCode === 13) {
+                API[database](evt.target.value).then(response => this.setState({ searchResults: [...response] }))
+            }
+        }
 
         return (
             <>
-                <input type="text" required onKeyPress={this.searchAPI} id={'searchInput'} placeholder={'search'} />
+                <input type="text" required onKeyPress={searchAPI} id={'searchInput'} placeholder={'search'} />
                 <div className="search-results-cards">
-                    {/* {this.state.searchResults.map((result, i) => resultCard)} */}
+                    {this.state.searchResults.map((result, i) => <p>{result.title}</p>)}
                 </div>
             </>
         )
