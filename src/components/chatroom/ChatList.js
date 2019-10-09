@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 //import the components we will need
 import ChatCard from './ChatCard'
+import moment from "moment";
 import APIManager from '../../modules/APIManager'
 import { timeout } from 'q';
 import './Chat.css'
@@ -31,7 +32,7 @@ class ClassList extends Component {
             const message = {
                 userId: 5000,
                 message: this.state.newMessage,
-                date: Date.now()
+                date: moment().format("lll")
             };
 
             APIManager.post(message, "messages")
