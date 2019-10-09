@@ -55,7 +55,7 @@ const API = {
     return fetch(`${remoteURL}/${database}?${type}_like=${search}`)
     .then(result => result.json())
   },
-  searchNewsAPI: (typedInput) => {
+  articles: (typedInput) => {
     return fetch('https://newsapi.org/v2/everything?' +
     `q=${typedInput}&` +
     'from=2019-10-09&' +

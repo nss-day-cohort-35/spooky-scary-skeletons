@@ -12,18 +12,19 @@ class EntryForm extends Component {
     searchAPI(evt) {
         evt.persist();
         console.log(evt)
+        API[this.props.database.json]().then(response => this.setState({ searchResults: [...response.articles] }))
     }
 
     componentDidMount() {
-        let resultCard;
-        if (this.props.database === "articles") {
-            resultCard = <>
+        // let resultCard;
+        // if (this.props.database === "articles") {
+        //     resultCard = <>
 
-            </>
+        //     </>
 
-            API.searchNewsAPI().then(response => this.setState({ searchResults: [...response.articles] }))
+        //     API[this.props.database.json]().then(response => this.setState({ searchResults: [...response.articles] }))
 
-        }
+        // }
     }
 
     render() {
