@@ -1,7 +1,7 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
 //
-import Login from './auth/login';
+import Login from "./auth/Login";
 
 export default class ApplicationViews extends Component {
 
@@ -18,22 +18,46 @@ export default class ApplicationViews extends Component {
 
         <Route
           path="/news" render={props => {
-            return null
-            // Remove null and return the component which will show list of friends
+            if (this.props.user) {
+              return null
+              {/*return <NewsList {...props} />;
+            */}
+            } else {
+              return <Redirect to="/login" />;
+            }
           }}
         />
 
         <Route
           path="/events" render={props => {
-            return null
-            // Remove null and return the component which will show the messages
+            if (this.props.user) {
+              return null
+              {/*return <EventsList {...props} />;
+            */}
+            } else {
+              return <Redirect to="/login" />;
+            }
           }}
         />
 
         <Route
           path="/tasks" render={props => {
-            return null
-            // Remove null and return the component which will show the user's tasks
+            if (this.props.user) {
+              return null
+              {/*return <TasksList {...props} />;
+            */}
+            } else {
+              return <Redirect to="/login" />;
+            }
+          }}
+        />
+
+        {/*
+
+        */}
+        <Route
+          path="/login" render={props => {
+            return <Login setUser={this.props.setUser} {...props} />;
           }}
         />
 
