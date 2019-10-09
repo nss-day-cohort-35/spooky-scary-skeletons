@@ -12,22 +12,29 @@ class Spooky extends Component {
     query: {
       table: "users",
       email: "",
-      password: ""
+      password: "",
+      user: "",
+      username: ""
     }
-
   };
 
-  checkData = (authObj) => {
+  checkData = () => {
     //console.log("Spooky query after:", this.state.query)
 
     APIManager.getRecord(this.state.query)
       .then(userList => {
         if (userList.length) {
           //
-          localStorage.setItem('credentials', JSON.stringify(authObj));
+          console.log("Spooky getRecord userList", userList)
+          //
+          localStorage.setItem('credentials', JSON.stringify(userList));
           this.setState({
             user: this.isAuthenticated()
           });
+          console.log("Spooky credentials:", localStorage.getItem('credentials'))
+          var test = localStorage.getItem('credentials')
+          console.log("Spooky id:", Object.values(localStorage.credentials[0])[4])
+
         } else {
           alert("Input data is not valid. Try again!");
         }
@@ -45,10 +52,31 @@ class Spooky extends Component {
       query: {
         table: updater.query.table,
         email: authObj.email,
-        password: authObj.password
+        password: authObj.password,
+        user: updater.query.user,
+        username: updater.query.username
       }
-    }), () => { this.checkData(authObj) }
+    }), () => { this.checkData() }
     )
+  }
+
+  newUser = input => {
+    //console.log("Spooky authObj", authObj)
+    //console.log("Spooky query before:", this.state.query)
+
+    //APIManager.getRecord(this.state.query)
+    /*
+        this.setState(updater => ({
+          query: {
+            table: updater.query.table,
+            email: input.email,
+            password: input.password,
+            user: input.query.user,
+            username: input.query.username
+          }
+        }), () => { this.checkData() }
+        )
+    */
   }
 
   // componentDidMount() {
@@ -70,7 +98,7 @@ class Spooky extends Component {
     return (
       <React.Fragment>
         <NavBar user={this.state.user} clearUser={this.clearUser} />
-        <ApplicationViews user={this.state.user} setUser={this.setUser} />
+        <ApplicationViews user={this.state.user} setUser={this.setUser} newUser={this.newUser} />
       </React.Fragment>
     );
   }
