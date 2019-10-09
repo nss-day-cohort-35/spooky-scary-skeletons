@@ -7,7 +7,7 @@ class TaskCard extends Component {
             <div>
                 <h3>Name:{this.props.task.task}</h3>
                 <p>Complete Date:{this.props.task.date}</p>
-                 <input type="checkbox">Complete</input>
+                <input type="checkbox">Complete</input>
             </div>
         )
     }
