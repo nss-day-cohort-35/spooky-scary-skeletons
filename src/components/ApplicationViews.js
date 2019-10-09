@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import EntryList from './Feed/EntryList'
 import TaskList from './task/TaskList'
 import EntryForm from './Feed/EntryForm'
+import TaskForm from './task/TaskForm'
 import Login from "./auth/Login";
 
 export default class ApplicationViews extends Component {
@@ -47,7 +48,7 @@ export default class ApplicationViews extends Component {
         />
       {/* ---------tasks---------*/}
         <Route
-          path="/tasks" render={props => {
+           exact path="/tasks" render={props => {
             if (this.props.user) {
               return <TaskList database="tasks" {...props} />
             } else {
@@ -55,6 +56,15 @@ export default class ApplicationViews extends Component {
             }
           }}
         />  
+        <Route
+          path="/tasks/new" render={props => {
+            if(this.props.user) {
+              return <TaskForm database="tasks" {...props} />
+            } else {
+              return <Redirect to="/login" />
+            }
+          }}
+          />
         {/* ---------login---------*/}
         <Route
           path="/login" render={props => {
