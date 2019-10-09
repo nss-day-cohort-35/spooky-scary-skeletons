@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import API from '../../modules/APIManager'
+import SearchResult from './SearchResult'
 
 // logged in user
 let currentUser = "1"
 
-class EntryForm extends Component {
+class SearchPage extends Component {
 
     state = {
         searchResults: []
@@ -22,6 +23,8 @@ class EntryForm extends Component {
         // }
     }
 
+// {/* <SearchResult content={result} {...this.props}/> */}
+
     render() {
         let database = this.props.database
         const searchAPI = (evt) => {
@@ -29,16 +32,15 @@ class EntryForm extends Component {
                 API[database](evt.target.value).then(response => this.setState({ searchResults: [...response] }))
             }
         }
-
         return (
             <>
                 <input type="text" required onKeyPress={searchAPI} id={'searchInput'} placeholder={'search'} />
                 <div className="search-results-cards">
-                    {this.state.searchResults.map((result, i) => <p>{result.title}</p>)}
+                    {this.state.searchResults.map((result, i) => <SearchResult content={result} {...this.props}/>)}
                 </div>
             </>
         )
     }
 }
 
-export default EntryForm;
+export default SearchPage;

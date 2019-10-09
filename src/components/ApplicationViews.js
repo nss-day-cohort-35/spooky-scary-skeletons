@@ -1,7 +1,7 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
 import EntryList from './Feed/EntryList'
-import EntryForm from './Feed/EntryForm'
+import SearchPage from './Feed/SearchPage'
 import Login from "./auth/Login";
 
 export default class ApplicationViews extends Component {
@@ -28,7 +28,7 @@ export default class ApplicationViews extends Component {
 
         <Route path="/articles/new" render={props => {
           if (this.props.user) {
-            return <EntryForm database="articles" {...props} />
+            return <SearchPage database="articles" {...props} />
           } else {
             return <Redirect to="/login" />;
           }
@@ -46,7 +46,7 @@ export default class ApplicationViews extends Component {
 
         <Route path="/events/new" render={props => {
           if (this.props.user) {
-            return <EntryForm database="events" {...props} />
+            return <SearchPage database="events" {...props} />
           } else {
             return <Redirect to="/login" />;
           }
