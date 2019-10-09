@@ -12,7 +12,7 @@ class FriendsList extends Component {
         friends: [],
         searchResults: [],
         searchBox: "",
-        loading:false
+        loading:false,
     }
 
 
