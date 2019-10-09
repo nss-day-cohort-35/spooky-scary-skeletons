@@ -14,7 +14,8 @@ class ClassList extends Component {
     state = {
         messages: [],
         newMessage: "",
-        loadingStatus: false
+        loadingStatus: false,
+        currentUserId: 0
     }
 
     handleFieldChange = event => {
@@ -31,7 +32,7 @@ class ClassList extends Component {
         } else {
             this.setState({ loadingStatus: true });
             const message = {
-                userId: 5000,
+                userId: this.state.currentUserId,
                 message: this.state.newMessage,
                 date: moment().format("lll")
             };
@@ -50,6 +51,9 @@ class ClassList extends Component {
     
 
     componentDidMount() {
+        let returnedStorage = localStorage.getItem('credentials')
+        let currentUser = JSON.parse(returnedStorage)[0]
+        this.setState({currentUserId:currentUser.id})
 
         APIManager.getAllAndExpand("messages","user")
             .then((data) => {

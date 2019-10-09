@@ -13,6 +13,7 @@ class FriendsList extends Component {
         searchResults: [],
         searchBox: "",
         loading:false,
+        currentUserId: 0
     }
 
 
@@ -24,7 +25,12 @@ class FriendsList extends Component {
     };
 
     componentDidMount() {
-        APIManager.getFriends("follows", "user", "initiate", 5000)
+        let returnedStorage = localStorage.getItem('credentials')
+        let currentUser = JSON.parse(returnedStorage)[0]
+        console.log(currentUser)
+        this.setState({currentUserId:currentUser.id})
+
+        APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
             .then((data) => {
                 this.setState({ friends: data })
                 console.log(data)
@@ -36,7 +42,7 @@ class FriendsList extends Component {
             window.alert("Please input a username first.");
         }
         else{ 
-        this.state.loading = true;
+        this.setState({loading:true})
         APIManager.searchDatabase("users", "username", this.state.searchBox)
             .then((data) => {
                 console.log("search data:", data)
@@ -46,18 +52,17 @@ class FriendsList extends Component {
                 else{
                 this.setState({ searchResults: data })
                 }
-                this.state.loading = false;
+                this.setState({loading:false})
             })
         }
     }
 
     addFriend = id => {
-
-        APIManager.searchDatabase("follows","userId",id).then((data)=>{
-
+        APIManager.searchDatabase("follows","userId",id)
+        .then((data)=>{
             let matchFound = false;
             data.forEach(element => {
-                if(element.initiate === 5000){
+                if(element.initiate === this.state.currentUserId){
                     matchFound = true;
                 }
             });
@@ -66,12 +71,12 @@ class FriendsList extends Component {
             }
             else{
                 const newFriend = {
-                    initiate:5000,
+                    initiate:this.state.currentUserId,
                     userId:id
                 }
                 APIManager.post(newFriend, "follows")
                 .then(() => {
-                    APIManager.getFriends("follows", "user", "initiate", 5000)
+                    APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
                     .then((data) => {
                         this.setState({ friends: data })
                     })
@@ -83,7 +88,7 @@ class FriendsList extends Component {
     deleteFriend = id => {
         APIManager.delete(id, "follows")
             .then(() => {
-                APIManager.getFriends("follows", "user", "initiate", 5000)
+                APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
                     .then((newFriends) => {
                         this.setState({
                             friends: newFriends

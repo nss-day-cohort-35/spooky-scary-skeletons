@@ -31,10 +31,6 @@ class Spooky extends Component {
           this.setState({
             user: this.isAuthenticated()
           });
-          console.log("Spooky credentials:", localStorage.getItem('credentials'))
-          var test = localStorage.getItem('credentials')
-          console.log("Spooky id:", Object.values(localStorage.credentials[0])[4])
-
         } else {
           alert("Input data is not valid. Try again!");
         }
