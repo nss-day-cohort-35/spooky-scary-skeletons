@@ -1,11 +1,11 @@
 const remoteURL = "http://localhost:5002"
 
 /* filtering info here +> https://jsonapi.org/recommendations/ */
-  /*
-        Since the purpose of this module is to be used by
-        all of the more specialized ones, then the string
-        of `animals` should not be hard coded here.
-  */
+/*
+      Since the purpose of this module is to be used by
+      all of the more specialized ones, then the string
+      of `animals` should not be hard coded here.
+*/
 
 
 const API = {
@@ -18,12 +18,37 @@ const API = {
   getAll: (database) => {
     return fetch(`${remoteURL}/${database}`).then(e => e.json())
   },
+  getAllAndExpand(database, expanded) {
+    return fetch(`${remoteURL}/${database}?_expand=${expanded}`).then(e => e.json())
+  },
   getAndFilter: (database, key, value) => {
     return fetch(`${remoteURL}/${database}?${key}=${value}`).then(e => e.json())
   },
   getFeed: (database, currentUser, friendsIdsString) => {
     return fetch(`${remoteURL}/${database}?_expand=user&userId=${currentUser}${friendsIdsString}&_sort=date&_order=asc`).then(e => e.json())
   },
+  // --------------------------------------------
+  getRecord: (input) => {
+    let query = ""
+
+    if (input.table) {
+      query = `${input.table}`
+    }
+    if (input.email) {
+      query += `/?email=${input.email}`
+    }
+    if (input.password) {
+      query += `&password=${input.password}`
+    } else {
+      query = ""
+    }
+
+    //console.log("API.getRecord.query: ", query)
+
+    return fetch(`${remoteURL}/${query}`)
+      .then(response => response.json())
+  },
+  // ----------------------------------------------
   delete: (id, database) => {
     return fetch(`${remoteURL}/${database}/${id}`, {
       method: "DELETE"
@@ -53,15 +78,15 @@ const API = {
   },
   searchDatabase: (search, database, type) => {
     return fetch(`${remoteURL}/${database}?${type}_like=${search}`)
-    .then(result => result.json())
+      .then(result => result.json())
   },
   articles: (typedInput) => {
     return fetch('https://newsapi.org/v2/everything?' +
-    `q=${typedInput}&` +
-    'from=2019-10-09&' +
-    'sortBy=popularity&' +
-    'apiKey=dff143f1fe5946c2a7a56f338917b58c')
-    .then(result => result.json())
+      `q=${typedInput}&` +
+      'from=2019-10-09&' +
+      'sortBy=popularity&' +
+      'apiKey=dff143f1fe5946c2a7a56f338917b58c')
+      .then(result => result.json())
   }
 }
 

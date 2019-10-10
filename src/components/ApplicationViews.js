@@ -1,11 +1,13 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
+import ChatList from './chatroom/ChatList'
 import EntryList from './Feed/EntryList'
 import TaskList from './task/TaskList'
 import EntryForm from './Feed/EntryForm'
 import TaskForm from './task/TaskForm'
 import TaskEditForm from './task/TaskEditForm'
 import Login from "./auth/Login";
+import SignUp from "./auth/SignUp";
 
 export default class ApplicationViews extends Component {
 
@@ -13,13 +15,16 @@ export default class ApplicationViews extends Component {
     return (
       <React.Fragment>
 
-        <Route
-          exact path="/" render={props => {
-            return null
-            // Remove null and return the component which will show news articles
-          }}
+        <Route exact path="/" render={props => {
+          if (this.props.user) {
+            return <ChatList {...props} />
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
         />
-         {/* ---------articles---------*/}
+
+        {/* ---------articles---------*/}
         <Route path="/articles" render={props => {
           if (this.props.user) {
             return <EntryList database="articles" {...props} />
@@ -47,7 +52,7 @@ export default class ApplicationViews extends Component {
             }
           }}
         />
-      {/* ---------tasks---------*/}
+        {/* ---------tasks---------*/}
         <Route
            exact path="/tasks" render={props => {
             if (this.props.user) {
@@ -72,11 +77,21 @@ export default class ApplicationViews extends Component {
         />
 
         {/* ---------login---------*/}
-        <Route
-          path="/login" render={props => {
-            return <Login setUser={this.props.setUser} {...props} />;
-          }}
-        />
+        <Route path="/login" render={props => {
+          if (!this.props.user) {
+            return <Login setUser={this.props.setUser} {...props} />
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }} />
+
+        <Route path="/signup" render={props => {
+          if (!this.props.user) {
+            return <SignUp {...props} />
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }} />
 
       </React.Fragment>
     );
