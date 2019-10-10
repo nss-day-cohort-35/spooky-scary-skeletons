@@ -4,7 +4,6 @@ import EntryCard from './EntryCard'
 
 // logged in user
 let currentUser = "1"
-
 class EntryList extends Component {
     state = {
         entries: []
