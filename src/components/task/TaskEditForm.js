@@ -3,27 +3,40 @@ import APIManager from '../../modules/APIManager'
 
 class TaskEditForm extends Component{
     state = {
-        userId: localStorage.id,
+        
         task: "",
-        completeDate: "",
+        date: "",
         completed: false,
         loadingStaus: true
     }
 
     handleFieldChange = e => {
+        
+        console.log(e)
         const stateToChange = {}
         stateToChange[e.target.id] = e.target.value
-        this.setState(stateToChange)
+        this.setState(stateToChange) 
     }
 
+    updateTask = e => {
+        e.preventDefault()
+        this.setState({loadingStaus: true});
+        const editTask = {
+            id: this.props.match.params.taskId,
+            task: this.state.task,
+            date: this.state.date,
+        }
+        APIManager.update(editTask, "tasks").then(()=> this.props.history.push("/tasks"))
+
+    }
     
     componentDidMount(){
-        APIManager.getAll().then(tasks => {
-            APIManager.get(this.props.match.params.tasks.id)
+        APIManager.getAll("tasks").then(tasks => {
+            APIManager.get(this.props.match.params.taskId, "tasks")
             .then(task => {
                 this.setState({
-                    task: task,
-                    completeDate: date
+                    task: task.task,
+                    date: task.date
 
                 })
             })
@@ -35,16 +48,16 @@ class TaskEditForm extends Component{
                 <fieldset>
                     <div className='formgrid'>
                         <label for="taskName">Task</label>
-                        <input type="text" required onChange= {this.handleFieldChange} id="taskName"
+                        <input type="text" required onChange={this.handleFieldChange} value={this.state.task}id="task"
                         ></input>
                     </div>
                     <div className='formgrid'>
                         <label for="taskDate">Date</label>
-                        <input type="date" required onChange= {this.handleFieldChange} id="taskDate"></input>
+                        <input type="date" required onChange={this.handleFieldChange} value={this.state.date} id="date"></input>
                     </div>
                     <div>
-                        <button type="button" disabled={this.state.loadingStaus}
-                                              onClick={this.constructNewTask} >
+                        <button type="button" 
+                                              onClick={this.updateTask} >
                                 Save
                         </button>
                     </div>
@@ -53,3 +66,5 @@ class TaskEditForm extends Component{
         )
     }
 }
+
+export default TaskEditForm

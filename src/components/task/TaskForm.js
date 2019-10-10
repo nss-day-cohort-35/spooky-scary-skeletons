@@ -38,15 +38,16 @@ class TaskForm extends Component {
 
     render() {
         return(
+            <>
             <form>
                 <fieldset>
                     <div className='formgrid'>
                         <label for="taskName">Task</label>
-                        <input type="text" required onChange= {this.handleFieldChange} id="taskName"></input>
+                        <input type="text" required onChange={this.handleFieldChange} id="taskName"></input>
                     </div>
                     <div className='formgrid'>
                         <label for="taskDate">Date</label>
-                        <input type="date" required onChange= {this.handleFieldChange} id="taskDate"></input>
+                        <input type="date" required onChange={this.handleFieldChange} id="taskDate"></input>
                     </div>
                     <div>
                         <button type="button" disabled={this.state.loadingStaus}
@@ -56,6 +57,7 @@ class TaskForm extends Component {
                     </div>
                 </fieldset>
             </form>
+            </>
         )
 
     }

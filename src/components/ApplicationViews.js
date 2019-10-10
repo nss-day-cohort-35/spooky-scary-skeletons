@@ -4,6 +4,7 @@ import EntryList from './Feed/EntryList'
 import TaskList from './task/TaskList'
 import EntryForm from './Feed/EntryForm'
 import TaskForm from './task/TaskForm'
+import TaskEditForm from './task/TaskEditForm'
 import Login from "./auth/Login";
 
 export default class ApplicationViews extends Component {
@@ -64,7 +65,12 @@ export default class ApplicationViews extends Component {
               return <Redirect to="/login" />
             }
           }}
-          />
+          />  
+           <Route  path="/tasks/:taskId(\d+)/edit" render={props => {
+          return <TaskEditForm {...props} />
+          }}
+        />
+
         {/* ---------login---------*/}
         <Route
           path="/login" render={props => {

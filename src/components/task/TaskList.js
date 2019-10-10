@@ -8,13 +8,16 @@ class TaskList extends Component {
         tasks: []
     };
 
-    componentDidMount(){
-        console.log('TASK LIST: ComponentDidMount');
+    getData = () => {
         APIManager.getAll("tasks").then((task) => {
             this.setState({
                 tasks: task
             })
         })
+    }
+    componentDidMount(){
+        console.log('TASK LIST: ComponentDidMount');
+        this.getData()
     }
 
 
@@ -35,6 +38,7 @@ class TaskList extends Component {
                 {this.state.tasks.map(task => (
                     <TaskCard key = {task.id}
                               task = {task}
+                              {...this.props}
                     />
                 ))}
             </div>
