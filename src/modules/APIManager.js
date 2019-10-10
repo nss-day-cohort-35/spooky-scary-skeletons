@@ -48,6 +48,23 @@ const API = {
     return fetch(`${remoteURL}/${query}`)
       .then(response => response.json())
   },
+  putRecord(table, input) {
+    let query = ""
+
+    if (table) {
+      query = `${table}`
+    }
+    //console.log("API.putRecord.query: ", query)
+
+    return fetch(`${remoteURL}/${query}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(input)
+    })
+      .then(response => response.json())
+  },
   // ----------------------------------------------
   delete: (id, database) => {
     return fetch(`${remoteURL}/${database}/${id}`, {

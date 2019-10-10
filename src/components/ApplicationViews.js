@@ -72,7 +72,7 @@ export default class ApplicationViews extends Component {
 
         <Route path="/signup" render={props => {
           if (!this.props.user) {
-            return <SignUp {...props} />
+            return <SignUp newUser={this.props.newUser} {...props} />
           } else {
             return <Redirect to="/login" />;
           }
