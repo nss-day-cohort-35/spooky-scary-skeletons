@@ -1,6 +1,7 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
 import ChatList from './chatroom/ChatList'
+import ChatEditForm from './chatroom/ChatEditForm'
 import EntryList from './Feed/EntryList'
 import TaskList from './task/TaskList'
 import EntryForm from './Feed/EntryForm'
@@ -23,6 +24,10 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />;
           }
         }}
+        />
+          <Route  path="/:chatId(\d+)/edit" render={props => {
+          return <ChatEditForm {...props} />
+          }}
         />
 
         {/* ---------articles---------*/}
