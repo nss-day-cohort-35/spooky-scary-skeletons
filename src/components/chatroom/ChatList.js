@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 //import the components we will need
 import ChatCard from './ChatCard'
+import FriendsList from './friends/FriendsList'
 import moment from "moment";
 import APIManager from '../../modules/APIManager'
 import { timeout } from 'q';
@@ -13,7 +14,8 @@ class ClassList extends Component {
     state = {
         messages: [],
         newMessage: "",
-        loadingStatus: false
+        loadingStatus: false,
+        currentUserId: 0
     }
 
     handleFieldChange = event => {
@@ -30,7 +32,7 @@ class ClassList extends Component {
         } else {
             this.setState({ loadingStatus: true });
             const message = {
-                userId: 5000,
+                userId: this.state.currentUserId,
                 message: this.state.newMessage,
                 date: moment().format("lll")
             };
@@ -39,7 +41,6 @@ class ClassList extends Component {
             .then(() =>{
                 APIManager.getAllAndExpand("messages","user")
                 .then((data) => {
-                    console.log(data);
                     this.setState({ messages: data, loadingStatus:false, newMessage:""})
                     ReactDOM.findDOMNode(this.refs.form).value = "";
                 })
@@ -50,16 +51,17 @@ class ClassList extends Component {
     
 
     componentDidMount() {
+        let returnedStorage = localStorage.getItem('credentials')
+        let currentUser = JSON.parse(returnedStorage)[0]
+        this.setState({currentUserId:currentUser.id})
 
         APIManager.getAllAndExpand("messages","user")
             .then((data) => {
-                console.log(data);
                 this.setState({ messages: data })
             })
     }
 
     render() {
-        console.log(this.state.messages);
         return (
             <>
                 <div className="container-cards">
@@ -74,6 +76,7 @@ class ClassList extends Component {
                     disabled={this.state.loadingStatus}
                     onClick={this.constructNewMessage}>Add Message</button>
                 </div>
+                <FriendsList/>
             </>
         )
     }
