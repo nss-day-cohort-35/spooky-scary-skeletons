@@ -9,6 +9,7 @@ import TaskEditForm from './task/TaskEditForm'
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 
+
 export default class ApplicationViews extends Component {
 
   render() {
@@ -71,7 +72,7 @@ export default class ApplicationViews extends Component {
             }
           }}
           />  
-           <Route  path="/tasks/:taskId(\d+)/edit" render={props => {
+          <Route  path="/tasks/:taskId(\d+)/edit" render={props => {
           return <TaskEditForm {...props} />
           }}
         />
