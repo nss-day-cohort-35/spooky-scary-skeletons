@@ -3,12 +3,15 @@ import TaskCard from './TaskCard';
 import APIManager from '../../modules/APIManager';
 import TaskComplete from './TaskComplete';
 
+import {Button} from 'reactstrap'
+
 
 class TaskList extends Component {
     state = {
         tasks: [],
         finishedTasks: [],
-        unfinishedTasks: []
+        unfinishedTasks: [],
+        
     };
 
     getData = () => {
@@ -34,7 +37,7 @@ class TaskList extends Component {
     }
 
     handleComplete = (id) => {
-        this.setState({loadingStaus: true});
+        this.setState({loadingStatus: true});
          APIManager.completeTask(id).then(()=> this.getData())
     }
 
@@ -44,13 +47,14 @@ class TaskList extends Component {
         return(
             <>
             <div>
-                <button  type ='button'
+                <Button  type ='button'
                          className = 'btn'
+                         color="secondary"
                          onClick = {() => {
-                        this.props.history.push('/tasks/new')
+                         this.props.history.push('/tasks/new')
                     }}>
                    Add Task
-                </button>
+                </Button>
             </div>
             <div>
                 <h1>Unfinished Tasks</h1>

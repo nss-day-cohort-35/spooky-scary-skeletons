@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import APIManager from '../../modules/APIManager'
+import {Button,Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap'
 
 class TaskEditForm extends Component{
     state = {
-        
         task: "",
         date: "",
         completed: false,
-        loadingStaus: true
+        loadingStaus: true,
+        modal: true
     }
 
     handleFieldChange = e => {
@@ -47,31 +48,52 @@ class TaskEditForm extends Component{
             })
         })
     }
-    render(){
+
+    toggle = () => {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }))
+    }
+
+    render () {
+        const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>;
         return(
-            <form>
-                <fieldset>
-                    <div className='formgrid'>
-                        <label htmlFor="task">Task</label>
-                        <input type="text" required onChange={this.handleFieldChange} value={this.state.task}id="task"
-                        ></input>
-                    </div>
-                    <div className='formgrid'>
-                        <label htmlFor="date">Date</label>
-                        <input type="date" required onChange={this.handleFieldChange} value={this.state.date} id="date"></input>
-                    </div>
-                    <div className='formgrid'>
-                        <label htmlFor="completed">Complete</label>
-                        <input type="checkbox" onChange={this.handleCheck}  id="completed" checked={this.state.completed}></input>
-                    </div>
-                    <div>
-                        <button type="button" 
-                                              onClick={this.updateTask} >
-                                Save
-                        </button>
-                    </div>
-                </fieldset>
-            </form>
+            <>
+                   <Modal isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className}>
+                   <ModalHeader toggle={this.toggle}>EDIT TASK</ModalHeader>
+                   <ModalBody>
+                    <Form>
+                    <FormGroup>
+                        <Label htmlFor="task">Task</Label>
+                        <Input type="text" required onChange={this.handleFieldChange} value={this.state.task}id="task"
+                        ></Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="date">Date</Label>
+                        <Input type="date" required onChange={this.handleFieldChange} value={this.state.date} id="date"></Input>
+                    </FormGroup>
+                    {/* <FormGroup>
+                        <Label htmlFor="completed">Complete</Label>
+                        <Input type="checkbox" onChange={this.handleCheck}  id="completed" checked={this.state.completed}></Input>
+                    </FormGroup> */}
+                    <InputGroup>
+                         <InputGroupAddon addonType="prepend">
+                         <InputGroupText>
+                         <Input addon type="checkbox" onChange={this.handleCheck}  id="completed" checked={this.state.completed} aria-label="Checkbox for following text input" />
+                         </InputGroupText>
+                        </InputGroupAddon>
+                        <Input placeholder="Complete" />
+                    </InputGroup>
+                    </Form>
+                    </ModalBody>
+                    <ModalFooter>
+                         <Button  
+                           onClick={this.updateTask} >
+                           Save
+                        </Button>
+                   </ModalFooter>
+                   </Modal>
+           </>
         )
     }
 }
