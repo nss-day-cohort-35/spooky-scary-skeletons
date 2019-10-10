@@ -2,7 +2,10 @@ import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
 import ChatList from './chatroom/ChatList'
 import EntryList from './Feed/EntryList'
+import TaskList from './task/TaskList'
 import EntryForm from './Feed/EntryForm'
+import TaskForm from './task/TaskForm'
+import TaskEditForm from './task/TaskEditForm'
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 
@@ -51,16 +54,28 @@ export default class ApplicationViews extends Component {
         />
         {/* ---------tasks---------*/}
         <Route
-          path="/tasks" render={props => {
+           exact path="/tasks" render={props => {
             if (this.props.user) {
-              return null
-              {/*return <TasksList {...props} />;
-            */}
+              return <TaskList database="tasks" {...props} />
             } else {
               return <Redirect to="/login" />;
             }
           }}
+        />  
+        <Route
+          path="/tasks/new" render={props => {
+            if(this.props.user) {
+              return <TaskForm database="tasks" {...props} />
+            } else {
+              return <Redirect to="/login" />
+            }
+          }}
+          />  
+           <Route  path="/tasks/:taskId(\d+)/edit" render={props => {
+          return <TaskEditForm {...props} />
+          }}
         />
+
         {/* ---------login---------*/}
         <Route path="/login" render={props => {
           if (!this.props.user) {
