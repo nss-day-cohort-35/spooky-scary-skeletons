@@ -6,7 +6,7 @@ class TaskForm extends Component {
     state = {
         userId: localStorage.id,
         task: "",
-        completeDate: "",
+        date: "",
         completed: false,
         loadingStaus: false
     }
@@ -25,9 +25,9 @@ class TaskForm extends Component {
             this.setState({loadingStaus: true})
             const task = {
                 userId: this.state.userId,
-                task: this.state.taskName,
-                date: this.state.taskDate,
-                completed: this.state.completeDate,
+                task: this.state.task,
+                date: this.state.date,
+                completed: false,
 
 
             }
@@ -42,13 +42,14 @@ class TaskForm extends Component {
             <form>
                 <fieldset>
                     <div className='formgrid'>
-                        <label for="taskName">Task</label>
-                        <input type="text" required onChange={this.handleFieldChange} id="taskName"></input>
+                        <label htmlFor="task">Task</label>
+                        <input type="text" required onChange={this.handleFieldChange} id="task"></input>
                     </div>
                     <div className='formgrid'>
-                        <label for="taskDate">Date</label>
-                        <input type="date" required onChange={this.handleFieldChange} id="taskDate"></input>
+                        <label htmlFor="date">Date</label>
+                        <input type="date" required onChange={this.handleFieldChange} id="date"></input>
                     </div>
+                    
                     <div>
                         <button type="button" disabled={this.state.loadingStaus}
                                               onClick={this.constructNewTask} >

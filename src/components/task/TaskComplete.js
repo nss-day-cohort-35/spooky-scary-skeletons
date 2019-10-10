@@ -3,7 +3,7 @@ import APIManager from '../../modules/APIManager'
 
 
 
-class TaskCard extends Component {
+class TaskComplete extends Component {
     
     
     render(){
@@ -15,20 +15,14 @@ class TaskCard extends Component {
               
             </div>
             <div>
-               
-                <button type="button"
-            		  onClick={() => {this.props.history.push(`/tasks/${this.props.task.id}/edit`)}}>Edit
-          		</button>
                 <button type='button' onClick={() => this.props.handleDelete(this.props.task.id)}>
 						Delete
 				</button>
-                <button type='button' onClick={() => this.props.handleComplete(this.props.task.id)}>
-						Complete
-				</button>
+              
             </div>
             </>
         )
     }
 }
 
-export default TaskCard;
+export default TaskComplete;

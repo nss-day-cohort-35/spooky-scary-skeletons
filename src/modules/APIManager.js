@@ -87,6 +87,16 @@ const API = {
       'sortBy=popularity&' +
       'apiKey=dff143f1fe5946c2a7a56f338917b58c')
       .then(result => result.json())
+  },
+  completeTask: (id) => {
+    let obj = {"completed": true}
+    return fetch(`${remoteURL}/tasks/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(obj)
+    }).then(data => data.json());
   }
 }
 

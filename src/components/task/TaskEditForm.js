@@ -11,13 +11,16 @@ class TaskEditForm extends Component{
     }
 
     handleFieldChange = e => {
-        
-        console.log(e)
+      
         const stateToChange = {}
         stateToChange[e.target.id] = e.target.value
         this.setState(stateToChange) 
     }
 
+    handleCheck= e=> {
+        this.setState({completed: !this.state.completed});
+      }
+  
     updateTask = e => {
         e.preventDefault()
         this.setState({loadingStaus: true});
@@ -25,6 +28,7 @@ class TaskEditForm extends Component{
             id: this.props.match.params.taskId,
             task: this.state.task,
             date: this.state.date,
+            completed: JSON.parse(this.state.completed)
         }
         APIManager.update(editTask, "tasks").then(()=> this.props.history.push("/tasks"))
 
@@ -36,7 +40,8 @@ class TaskEditForm extends Component{
             .then(task => {
                 this.setState({
                     task: task.task,
-                    date: task.date
+                    date: task.date,
+                    completed: task.completed
 
                 })
             })
@@ -47,13 +52,17 @@ class TaskEditForm extends Component{
             <form>
                 <fieldset>
                     <div className='formgrid'>
-                        <label for="taskName">Task</label>
+                        <label htmlFor="task">Task</label>
                         <input type="text" required onChange={this.handleFieldChange} value={this.state.task}id="task"
                         ></input>
                     </div>
                     <div className='formgrid'>
-                        <label for="taskDate">Date</label>
+                        <label htmlFor="date">Date</label>
                         <input type="date" required onChange={this.handleFieldChange} value={this.state.date} id="date"></input>
+                    </div>
+                    <div className='formgrid'>
+                        <label htmlFor="completed">Complete</label>
+                        <input type="checkbox" onChange={this.handleCheck}  id="completed" checked={this.state.completed}></input>
                     </div>
                     <div>
                         <button type="button" 
