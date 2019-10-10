@@ -48,6 +48,23 @@ const API = {
     return fetch(`${remoteURL}/${query}`)
       .then(response => response.json())
   },
+  putRecord(table, input) {
+    let query = ""
+
+    if (table) {
+      query = `${table}`
+    }
+    //console.log("API.putRecord.query: ", query)
+
+    return fetch(`${remoteURL}/${query}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(input)
+    })
+      .then(response => response.json())
+  },
   // ----------------------------------------------
   delete: (id, database) => {
     return fetch(`${remoteURL}/${database}/${id}`, {
@@ -73,10 +90,10 @@ const API = {
       body: JSON.stringify(editedObject)
     }).then(data => data.json());
   },
-  getFriend: (id, database, expanded, type, initiate) => {
-    return fetch(`${remoteURL}/${database}/${id}?_expand=${expanded}&${type}=${initiate}`).then(e => e.json())
+  getFriends: (database, expanded, type, initiate) => {
+    return fetch(`${remoteURL}/${database}?_expand=${expanded}&${type}=${initiate}`).then(e => e.json())
   },
-  searchDatabase: (search, database, type) => {
+  searchDatabase: (database, type, search) => {
     return fetch(`${remoteURL}/${database}?${type}_like=${search}`)
       .then(result => result.json())
   },

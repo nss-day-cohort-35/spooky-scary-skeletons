@@ -25,17 +25,18 @@ class SignUp extends Component {
 			the customer enters into local storage.
 		*/
         //let credentials = { email: this.state.email, password: this.state.password }
-        /*
-                let inputData = {
-                    name: this.state.name,
-                    username: this.state.username,
-                    email: this.state.email,
-                    password: this.state.password
-                }
-        
-                this.props.newUser(inputData);
-                this.props.history.push("/");
-                */
+
+        let inputData = {
+            name: this.state.name,
+            username: this.state.username,
+            email: this.state.email,
+            password: this.state.password,
+            password_confirm: this.state.password_confirm
+        }
+
+        this.props.newUser(inputData);
+        this.props.history.push("/");
+
     }
 
     render() {
@@ -45,28 +46,34 @@ class SignUp extends Component {
                     <h3>Please sign up</h3>
                     <div className="formgrid">
 
-                        <input onChange={this.handleFieldChange} type="name"
+                        <label htmlFor="name">Name</label>
+                        <input onChange={this.handleFieldChange} type="text"
                             id="name"
                             placeholder="Name"
-                            required="" autoFocus="" />
-                        <label htmlFor="inputName">Name</label><br />
+                            required="" autoFocus="" /><br />
 
-                        <input onChange={this.handleFieldChange} type="userName"
+                        <label htmlFor="username">Username</label>
+                        <input onChange={this.handleFieldChange} type="text"
                             id="username"
                             placeholder="Username"
-                            required="" autoFocus="" />
-                        <label htmlFor="inputUsername">Username</label><br />
+                            required="" autoFocus="" /><br />
 
+                        <label htmlFor="email">Email address</label>
                         <input onChange={this.handleFieldChange} type="email"
                             id="email"
                             placeholder="Email address"
-                            required="" autoFocus="" />
-                        <label htmlFor="inputEmail">Email address</label><br />
+                            required="" autoFocus="" /><br />
 
-                        <label htmlFor="inputPassword">Password</label>
+                        <label htmlFor="password">Password</label>
                         <input onChange={this.handleFieldChange} type="password"
                             id="password"
                             placeholder="Password"
+                            required="" /><br />
+
+                        <label htmlFor="password_confirm">Password confirm</label>
+                        <input onChange={this.handleFieldChange} type="password"
+                            id="password_confirm"
+                            placeholder="Password Confirm"
                             required="" />
 
                     </div>
