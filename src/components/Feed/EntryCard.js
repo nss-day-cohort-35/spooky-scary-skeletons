@@ -5,31 +5,24 @@ let currentUser = "1"
 
 class EntryCard extends Component {
     render() {
-        let userName = <p className="card-user-name">{`${this.props.cardContent.user.name}`}</p>
-        let cardDate = <p className="card-date">{`${this.props.cardContent.date}`}</p>
-        let cardBody;
         let editButton;
         let deleteButton;
-        // set the card body as article or event
-        if (`${this.props.database}` === 'articles') {
-            cardBody = <></>
-        }
-        else if (`${this.props.database}` === 'events') {
-            cardBody = <></>
-        }
-        // populate edit/delete buttons
+        // populate edit and delete buttons if userId = currentUser
         if (`${this.props.cardContent.userId}` === currentUser) {
             editButton = <button type="button" onClick={() => {this.props.history.push(`/${this.props.database}/${this.props.cardContent.id}/edit`)}}>Edit</button>
             deleteButton = <button type="button" disabled={false}>Delete</button> 
         }
+        // return single entry
         return (
-            <>
-                {userName}
-                {cardDate}
-                {cardBody}
-                {editButton}
-                {deleteButton}
-            </>
+            <div>
+                <p className="card-user-name">{`${this.props.cardContent.user.name}`}</p>
+                <p className="card-date">{`${this.props.cardContent.date}`}</p>
+                <p>{`${this.props.cardContent.message}`}</p>
+                <img className="entry-img" src={`${this.props.cardContent.image}`} alt=""></img>
+                <h5>{this.props.cardContent.title}</h5>
+                <p>{this.props.cardContent.description}</p>
+                {editButton}{deleteButton}
+            </div>
         )
     }
 }

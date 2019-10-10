@@ -8,26 +8,23 @@ class EntryList extends Component {
     state = {
         entries: []
     };
-
-    // triggered by componentDidMount - fetches the entries of each user you follow and sets state with that array of entries 
+    // 2.) build up a fetch call that gets the articles or events of all the people you follow 
     getEntries(arrayOfFollows) {
         let userIdString = ""
         arrayOfFollows.forEach(follow => { userIdString += `&userId=${follow.userId}` })
-        // this.props.database determines whether those entries will be news or events
         API.getFeed(`${this.props.database}`, `${currentUser}`, `${userIdString}`).then(response => this.setState({ entries: [...response] }))
     }
-
-    // start here on componentDidmount
+    // 1). On page load - search all the people you follow
     componentDidMount() {
         API.getAndFilter("follows", "initiate", currentUser)
             .then(arrayOfFollows => this.getEntries(arrayOfFollows))
     }
-
+    // 3). return a card for each article or event of all the people you follow. pass content as props
     render() {
         return (
             <>
             <section className="section-content">
-                <button type="button" className="btn" onClick={() => { this.props.history.push(`/${this.props.database}/new`) }}>Add</button>
+                <button type="button" onClick={() => { this.props.history.push(`/${this.props.database}/new`) }}>Add</button>
             </section>
             <div className="container-cards">
                 {this.state.entries.map((entry, i) => <EntryCard key={i} cardContent={entry} {...this.props} />)}
