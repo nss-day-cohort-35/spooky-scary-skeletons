@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import APIManager from '../../modules/APIManager';
+import {Button,Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input} from 'reactstrap'
 
 
 class TaskForm extends Component {
@@ -8,10 +9,11 @@ class TaskForm extends Component {
         task: "",
         date: "",
         completed: false,
-        loadingStaus: false
+        loadingStaus: false,
+        modal: true
+       
     }
 
-    
     handleFieldChange = e => {
         const stateToChange = {}
         stateToChange[e.target.id] = e.target.value;
@@ -33,34 +35,48 @@ class TaskForm extends Component {
                 task: this.state.task,
                 date: this.state.date,
                 completed: false,
+               
             }
             console.log(task)
             APIManager.post(task, "tasks").then(() => this.props.history.push('/tasks'));
         }
     }
 
+    //toggle = this.toggle.bind(this)
+
+    toggle = () => {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }))
+    }
+
     render() {
+         const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>;
         return(
             <>
-            <form>
-                <fieldset>
-                    <div className='formgrid'>
-                        <label htmlFor="task">Task</label>
-                        <input type="text" required onChange={this.handleFieldChange} id="task"></input>
-                    </div>
-                    <div className='formgrid'>
-                        <label htmlFor="date">Date</label>
-                        <input type="date" required onChange={this.handleFieldChange} id="date"></input>
-                    </div>
-                    
-                    <div>
-                        <button type="button" disabled={this.state.loadingStaus}
-                                              onClick={this.constructNewTask} >
-                                Save
-                        </button>
-                    </div>
-                </fieldset>
-            </form>
+            <Form>
+                <Modal isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className}>
+                <ModalHeader toggle={this.toggle}>ADD TASK</ModalHeader>
+                <ModalBody>
+                <Form>
+                    <FormGroup>
+                        <Label htmlFor="task">Task</Label>
+                        <Input type="text" required onChange={this.handleFieldChange} id="task"></Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label htmlFor="date">Date</Label>
+                        <Input type="date" required onChange={this.handleFieldChange} id="date"></Input>
+                    </FormGroup>
+                </Form>
+                </ModalBody>
+                <ModalFooter>
+                     <Button disabled={this.state.loadingStaus}
+                             onClick={this.constructNewTask} >
+                             Save
+                    </Button>
+                </ModalFooter>
+                </Modal>
+            </Form>
             </>
         )
 

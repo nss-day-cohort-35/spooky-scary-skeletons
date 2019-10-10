@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import APIManager from '../../modules/APIManager'
+import {Button} from 'reactstrap'
 
 
 
@@ -15,9 +16,9 @@ class TaskComplete extends Component {
               
             </div>
             <div>
-                <button type='button' onClick={() => this.props.handleDelete(this.props.task.id)}>
+                <Button type='button' onClick={() => this.props.handleDelete(this.props.task.id)}>
 						Delete
-				</button>
+				</Button>
               
             </div>
             </>
