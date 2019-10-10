@@ -3,20 +3,17 @@ import { Link } from "react-router-dom";
 
 class ChatEditCard extends Component {
 
-    state = {
-        message: "",
-        editing: false
-    }
-
     IsEditAvailable = () => {
-        let body
+        let body;
         console.log(this.props.message.user.id, "=", this.props.currentUserId)
         if (this.props.message.user.id === this.props.currentUserId) {
             body = <>
                 <div className="card-content">
                     <p className="card-name">{this.props.message.user.username} :: {this.props.message.date} :</p>
                     <p className="card-message">{this.props.message.message}</p>
-                    <button type="button" className="card-button">Edit</button>
+                    <button
+                   onClick={() => {this.props.history.push(`/${this.props.message.id}/edit`)}}>Edit
+                   </button>
                 </div>
             </>
 

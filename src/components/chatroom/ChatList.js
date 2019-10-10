@@ -48,7 +48,6 @@ class ClassList extends Component {
             )
         }
         }
-    
 
     componentDidMount() {
         let returnedStorage = localStorage.getItem('credentials')
@@ -60,6 +59,7 @@ class ClassList extends Component {
                 this.setState({ messages: data })
             })
     }
+
     render() {
         return (
             <>
