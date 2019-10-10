@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 //import the components we will need
-import ChatCard from './ChatCard'
+import ChatEditCard from './ChatEditCard'
 import FriendsList from './friends/FriendsList'
 import moment from "moment";
 import APIManager from '../../modules/APIManager'
@@ -60,13 +60,12 @@ class ClassList extends Component {
                 this.setState({ messages: data })
             })
     }
-
     render() {
         return (
             <>
                 <div className="container-cards">
                     {this.state.messages.map(message =>
-                        <ChatCard key={message.id} message={message} {...this.props} />
+                        <ChatEditCard key={message.id} message={message} currentUserId={this.state.currentUserId}{...this.props}/>
                     )}
                 </div>
                 <div className = "container-input">

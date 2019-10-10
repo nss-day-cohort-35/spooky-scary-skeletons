@@ -12,7 +12,7 @@ class FriendsList extends Component {
         friends: [],
         searchResults: [],
         searchBox: "",
-        loading:false,
+        loading: false,
         currentUserId: 0
     }
 
@@ -24,65 +24,64 @@ class FriendsList extends Component {
         this.setState(stateToChange);
     };
 
-    componentDidMount() {
-        let returnedStorage = localStorage.getItem('credentials')
-        let currentUser = JSON.parse(returnedStorage)[0]
-        console.log(currentUser)
-        this.setState({currentUserId:currentUser.id})
-
+    getFriends() {
         APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
             .then((data) => {
                 this.setState({ friends: data })
-                console.log(data)
             })
+    }
+
+    componentDidMount() {
+        let returnedStorage = localStorage.getItem('credentials')
+        let currentUser = JSON.parse(returnedStorage)[0]
+        this.setState({ currentUserId: currentUser.id }, this.getFriends)
     }
 
     searchFriends = () => {
         if (this.state.searchBox === "") {
             window.alert("Please input a username first.");
         }
-        else{ 
-        this.setState({loading:true})
-        APIManager.searchDatabase("users", "username", this.state.searchBox)
-            .then((data) => {
-                console.log("search data:", data)
-                if(Object.keys(data).length === 0){
-                    window.alert("Couldn't find anyone! This rattles my bones!");
-                }
-                else{
-                this.setState({ searchResults: data })
-                }
-                this.setState({loading:false})
-            })
+        else {
+            this.setState({ loading: true })
+            APIManager.searchDatabase("users", "username", this.state.searchBox)
+                .then((data) => {
+                    if (Object.keys(data).length === 0) {
+                        window.alert("Couldn't find anyone! This rattles my bones!");
+                    }
+                    else {
+                        this.setState({ searchResults: data })
+                    }
+                    this.setState({ loading: false })
+                })
         }
     }
 
     addFriend = id => {
-        APIManager.searchDatabase("follows","userId",id)
-        .then((data)=>{
-            let matchFound = false;
-            data.forEach(element => {
-                if(element.initiate === this.state.currentUserId){
-                    matchFound = true;
+        APIManager.searchDatabase("follows", "userId", id)
+            .then((data) => {
+                let matchFound = false;
+                data.forEach(element => {
+                    if (element.initiate === this.state.currentUserId) {
+                        matchFound = true;
+                    }
+                });
+                if (matchFound === true) {
+                    window.alert("You're already following this person, numbskull!");
                 }
-            });
-            if(matchFound === true){
-                window.alert("You're already following this person, numbskull!");
-            }
-            else{
-                const newFriend = {
-                    initiate:this.state.currentUserId,
-                    userId:id
+                else {
+                    const newFriend = {
+                        initiate: this.state.currentUserId,
+                        userId: id
+                    }
+                    APIManager.post(newFriend, "follows")
+                        .then(() => {
+                            APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
+                                .then((data) => {
+                                    this.setState({ friends: data })
+                                })
+                        })
                 }
-                APIManager.post(newFriend, "follows")
-                .then(() => {
-                    APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
-                    .then((data) => {
-                        this.setState({ friends: data })
-                    })
-                })
-            }
-        })
+            })
     }
 
     deleteFriend = id => {
@@ -97,17 +96,18 @@ class FriendsList extends Component {
             })
     }
     render() {
+        console.log(this.state.friends)
 
         return (
             <>
                 <div className="friends-container">
                     <div className="search-container">
                         <input className="search-inbox" id="searchBox" ref="form" onChange={this.handleFieldChange}></input>
-                        <button className="submit-button" disabled = {this.loading} onClick={this.searchFriends}>Search</button>
-                        <div className = "search-friends">
-                        {this.state.searchResults.map(user =>
-                            <NewFriendCard key={user.id} user={user} addFriend={this.addFriend} {...this.props} />
-                        )}
+                        <button className="submit-button" disabled={this.loading} onClick={this.searchFriends}>Search</button>
+                        <div className="search-friends">
+                            {this.state.searchResults.map(user =>
+                                <NewFriendCard key={user.id} user={user} addFriend={this.addFriend} {...this.props} />
+                            )}
                         </div>
                     </div>
                     <div className="current-container">
