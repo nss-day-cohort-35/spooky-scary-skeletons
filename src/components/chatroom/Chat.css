@@ -5,15 +5,96 @@
     overflow:auto; 
 }
 
-.input-box{
-    width: 70%;
+.container-chat{
+    width:100%;
 }
 
-.card-name{
+.input-box{
+    width: 100%;
+}
+
+.chat-card-name{
     color:rgb(161, 89, 0);
     font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
 }
-.card-name :hover{
+.chat-card-name :hover{
     color:rgb(226, 124, 0);
 }
+.chat-date{
+    font-size: 14px;
+}
+.header{
+    color:white;
+    text-align: center;
+    font-size: 50px;
+    padding-top: 20px;
+}
+
+.image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+    height: 25%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+
+.container{
+    display:flex;
+    justify-content: space-evenly;
+}
+
+.chat-body{
+    background-image: url("../../images/skullwallpaper.jpg");
+}
+.friends-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.search-container{
+    margin-left: 20px;
+    width: 50%;
+    height: 400px;
+}
+
+.current-container{
+    width: 50%;
+    height: 400px;
+    overflow:auto; 
+}
+
+h3{
+    color: white;
+}
+
+.icon-image{
+    border-radius: 100%;
+    width: 25%;
+}
+
+.current-friend-card{
+    display: flex;
+    justify-content:space-evenly;
+    background-color: white;
+    border: black solid 1px;
+    
+}
+
+.new-friend-card{
+    display: flex;
+    background-color: white;
+    border: black solid 1px;
+}
+
+.new-card-content{
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+

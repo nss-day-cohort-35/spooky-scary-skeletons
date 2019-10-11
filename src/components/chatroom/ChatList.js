@@ -126,21 +126,32 @@ class ClassList extends Component {
     render() {
         return (
             <>
-                <div className="container-cards">
-                    {this.state.messages.map(message =>
-                        <ChatEditCard key={message.id} message={message} addFriend={this.addFriend} currentUserId={this.state.currentUserId}{...this.props} />
-                    )}
-                    <div ref="chatOutput">
+            <article className = "chat-body">
+                <h1 className="header">Chat and Friends</h1>
+                <img className="image" src={require('../../images/skeletons-dancing.gif')} />
+                <div className="container">
+                    <div className="container-chat">
+                        <div className="container-cards">
+                            {this.state.messages.map(message =>
+                                <ChatEditCard key={message.id} message={message} addFriend={this.addFriend} currentUserId={this.state.currentUserId}{...this.props} />
+                            )}
+                            <div ref="chatOutput">
+                            </div>
+
+                        </div>
+                        <div className="container-input">
+                            <input type="text" className="input-box" ref="form" id="newMessage"
+                                onChange={this.handleFieldChange} placeholder="Add Message Here!"></input>
+                            <button type="button" className="container-button"
+                                disabled={this.state.loadingStatus}
+                                onClick={this.performUpdate}>Add Message</button>
+                        </div>
+                    </div>
+                    <div className="container-friends">
+                        <FriendsList friends={this.state.friends} getFriends={this.getFriends} addFriend={this.addFriend} deleteFriend={this.deleteFriend} />
                     </div>
                 </div>
-                <div className="container-input">
-                    <input type="text" className="input-box" ref="form" id="newMessage"
-                        onChange={this.handleFieldChange} placeholder="Add Message Here!"></input>
-                    <button type="button" className="container-button"
-                        disabled={this.state.loadingStatus}
-                        onClick={this.performUpdate}>Add Message</button>
-                </div>
-                <FriendsList friends={this.state.friends} getFriends={this.getFriends} addFriend={this.addFriend} deleteFriend={this.deleteFriend} />
+                </article>
             </>
         )
     }

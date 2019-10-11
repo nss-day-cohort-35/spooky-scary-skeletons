@@ -6,7 +6,6 @@ import CurrentFriendCard from './CurrentFriendCard'
 import moment from "moment";
 import APIManager from '../../../modules/APIManager'
 import { timeout } from 'q';
-import './Friends.css';
 
 class FriendsList extends Component {
     state = {
@@ -55,6 +54,7 @@ class FriendsList extends Component {
             <>
                 <div className="friends-container">
                     <div className="search-container">
+                    <h3>Search for friends</h3>
                         <input className="search-inbox" id="searchBox" ref="form" onChange={this.handleFieldChange}></input>
                         <button className="submit-button" disabled={this.loading} onClick={this.searchFriends}>Search</button>
                         <div className="search-friends">
@@ -64,6 +64,7 @@ class FriendsList extends Component {
                         </div>
                     </div>
                     <div className="current-container">
+                        <h3>Current Friends</h3>
                         {this.props.friends.map(friend =>
                             <CurrentFriendCard key={friend.id} friend={friend} deleteFriend={this.deleteFriend} {...this.props} />
                         )}
