@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import APIManager from '../../modules/APIManager';
 import {Table} from 'reactstrap'
 
@@ -39,7 +38,7 @@ class ToDo extends Component {
                         <td>{task.task}</td>
                         <td>{task.date}</td>
                     </tr>
-                </Table>
+                 </Table>
                 ))}
            
             </>
