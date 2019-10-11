@@ -15,8 +15,10 @@ class TaskComplete extends Component {
                 <p>Due By: {this.props.task.date}</p>
               
             </div>
-            <div>
-                <Button type='button' onClick={() => this.props.handleDelete(this.props.task.id)}>
+            <div className="mb-2">
+                <Button type='button' 
+                        size="sm" className="mx-1"
+                        onClick={() => this.props.handleDelete(this.props.task.id)}>
 						Delete
 				</Button>
               

@@ -15,16 +15,16 @@ class TaskCard extends Component {
                 <p>Due By: {this.props.task.date}</p>
               
             </div>
-            <div>
+            <div className="mb-2">
                
-                <Button type="button" color="secondary"
-            		  onClick={() => {this.props.history.push(`/tasks/${this.props.task.id}/edit`)}}>Edit
+                <Button type="button" color="secondary" size="sm" className="mx-1"
+            		  onClick={() => {this.props.handleEdit(this.props.task.id)}}>Edit
           		</Button>
-                <Button type='button' color="secondary"
+                <Button type='button' color="secondary" size="sm" className="mx-1"
                       onClick={() => this.props.handleDelete(this.props.task.id)}>
 						Delete
 				</Button>
-                <Button type='button' color="secondary"
+                <Button type='button' color="secondary" size="sm" className="mx-1"
                       onClick={() => this.props.handleComplete(this.props.task.id)}>
 						Complete
 				</Button>
