@@ -31,7 +31,7 @@ class TaskEditForm extends Component{
             date: this.state.date,
             userId: this.state.userId
         }
-        APIManager.update(editChat, "messages").then(()=> this.props.history.push("/"))
+        APIManager.update(editChat, "messages").then(()=> this.props.history.push("/chat"))
 
     }
     
