@@ -6,16 +6,15 @@ import CurrentFriendCard from './CurrentFriendCard'
 import moment from "moment";
 import APIManager from '../../../modules/APIManager'
 import { timeout } from 'q';
+import './Friends.css';
 
 class FriendsList extends Component {
     state = {
-        friends: [],
         searchResults: [],
         searchBox: "",
         loading: false,
         currentUserId: 0
     }
-
 
     handleFieldChange = event => {
         const stateToChange = {};
@@ -24,17 +23,10 @@ class FriendsList extends Component {
         this.setState(stateToChange);
     };
 
-    getFriends() {
-        APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
-            .then((data) => {
-                this.setState({ friends: data })
-            })
-    }
-
     componentDidMount() {
         let returnedStorage = localStorage.getItem('credentials')
         let currentUser = JSON.parse(returnedStorage)[0]
-        this.setState({ currentUserId: currentUser.id }, this.getFriends)
+        this.setState({ currentUserId: currentUser.id })
     }
 
     searchFriends = () => {
@@ -56,47 +48,8 @@ class FriendsList extends Component {
         }
     }
 
-    addFriend = id => {
-        APIManager.searchDatabase("follows", "userId", id)
-            .then((data) => {
-                let matchFound = false;
-                data.forEach(element => {
-                    if (element.initiate === this.state.currentUserId) {
-                        matchFound = true;
-                    }
-                });
-                if (matchFound === true) {
-                    window.alert("You're already following this person, numbskull!");
-                }
-                else {
-                    const newFriend = {
-                        initiate: this.state.currentUserId,
-                        userId: id
-                    }
-                    APIManager.post(newFriend, "follows")
-                        .then(() => {
-                            APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
-                                .then((data) => {
-                                    this.setState({ friends: data })
-                                })
-                        })
-                }
-            })
-    }
-
-    deleteFriend = id => {
-        APIManager.delete(id, "follows")
-            .then(() => {
-                APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
-                    .then((newFriends) => {
-                        this.setState({
-                            friends: newFriends
-                        })
-                    })
-            })
-    }
     render() {
-        console.log(this.state.friends)
+        console.log(this.props.friends)
 
         return (
             <>
@@ -106,13 +59,13 @@ class FriendsList extends Component {
                         <button className="submit-button" disabled={this.loading} onClick={this.searchFriends}>Search</button>
                         <div className="search-friends">
                             {this.state.searchResults.map(user =>
-                                <NewFriendCard key={user.id} user={user} addFriend={this.addFriend} {...this.props} />
+                                <NewFriendCard key={user.id} user={user} {...this.props} />
                             )}
                         </div>
                     </div>
                     <div className="current-container">
-                        {this.state.friends.map(friend =>
-                            <CurrentFriendCard key={friend.id} friend={friend} removeFriend={this.deleteFriend} {...this.props} />
+                        {this.props.friends.map(friend =>
+                            <CurrentFriendCard key={friend.id} friend={friend} deleteFriend={this.deleteFriend} {...this.props} />
                         )}
                     </div>
                 </div>

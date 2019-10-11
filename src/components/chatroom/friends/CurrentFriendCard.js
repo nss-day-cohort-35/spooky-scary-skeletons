@@ -8,7 +8,7 @@ class CurrentFriendCard extends Component {
             <div className="card">
                 <div className="card-content">
                     <p className="card-name">{this.props.friend.user.name}</p>
-                    <button type = "button" className = "card-button" onClick={() => this.props.removeFriend(this.props.friend.id)}>Remove</button>
+                    <button type = "button" className = "card-button" onClick={() => this.props.deleteFriend(this.props.friend.id)}>Remove</button>
                 </div>
             </div>
         )
