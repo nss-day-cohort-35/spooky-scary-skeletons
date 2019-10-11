@@ -9,7 +9,7 @@ class TaskForm extends Component {
         task: "",
         date: "",
         completed: false,
-        loadingStaus: false,
+        //loadingStatus: false,
        
     }
 
@@ -25,7 +25,7 @@ class TaskForm extends Component {
         if (this.state.taskName === '' || this.state.taskDate === '') {
             window.alert('Field is required')
         } else {
-            this.setState({loadingStaus: true})
+            //this.setState({loadingStatus: true})
             let returnedStorage = localStorage.getItem('credentials')
             let currentUser = JSON.parse(returnedStorage)[0]
 
@@ -68,7 +68,7 @@ class TaskForm extends Component {
                 </Form>
                 </ModalBody>
                 <ModalFooter>
-                     <Button disabled={this.state.loadingStaus}
+                     <Button 
                              onClick={this.constructNewTask} >
                              Save
                     </Button>

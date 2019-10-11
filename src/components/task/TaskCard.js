@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import APIManager from '../../modules/APIManager'
-import {Button} from 'reactstrap'
+import {Button, Card, CardBody, CardFooter} from 'reactstrap'
 
 
 
@@ -10,8 +10,9 @@ class TaskCard extends Component {
     render(){
         return (
             <>
+            
             <div>
-                <h3>{this.props.task.task}</h3>
+                <h5>{this.props.task.task}</h5>
                 <p>Due By: {this.props.task.date}</p>
               
             </div>
