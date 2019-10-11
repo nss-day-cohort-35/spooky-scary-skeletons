@@ -11,7 +11,7 @@ class TaskComplete extends Component {
         return (
             <>
             <div>
-                <h3>{this.props.task.task}</h3>
+                <h5>{this.props.task.task}</h5>
                 <p>Due By: {this.props.task.date}</p>
               
             </div>

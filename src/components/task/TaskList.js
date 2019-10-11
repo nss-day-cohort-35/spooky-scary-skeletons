@@ -6,6 +6,8 @@ import TaskComplete from './TaskComplete';
 import {Button} from 'reactstrap'
 import TaskForm from './TaskForm';
 import TaskEditForm from './TaskEditForm';
+import {Row, Col, Card, CardHeader, CardBody} from 'reactstrap'
+import './task.css'
 
 
 class TaskList extends Component {
@@ -115,7 +117,7 @@ class TaskList extends Component {
         console.log('TASK LIST: Render');
         return(
             <>
-            <div>
+            <div className="btnAddTask">
                 <Button  type ='button'
                          className = 'btn m-3'
                          color="secondary"
@@ -126,9 +128,12 @@ class TaskList extends Component {
                    Add Task
                 </Button>
             </div>
-            <div>
-                <h1>Unfinished Tasks</h1>
-                {this.state.unfinishedTasks.map(task => (
+            <div className="mt-5 mx-5">
+           <Row className="cardTask">
+               <Col md="6">
+               <Card>
+                   <CardHeader>Unfinished Tasks</CardHeader>
+                   <CardBody>{this.state.unfinishedTasks.map(task => (
                     <TaskCard key = {task.id}
                               task = {task}
                               handleDelete = {this.handleDelete}
@@ -137,11 +142,13 @@ class TaskList extends Component {
                               editToggle = {this.editToggle}
                               {...this.props}
                     />
-                ))}
-            </div>
-            <div>
-                <h1>Finished Tasks</h1>
-                {this.state.finishedTasks.map(task => (
+                ))}</CardBody>
+               </Card>
+               </Col>
+               <Col md="6">
+               <Card>
+                   <CardHeader>Finished Tasks</CardHeader>
+                   <CardBody>{this.state.finishedTasks.map(task => (
                     <TaskComplete key = {task.id}
                               task = {task}
                               handleDelete = {this.handleDelete}
@@ -149,8 +156,12 @@ class TaskList extends Component {
                               editToggle = {this.editToggle}
                               {...this.props}
                     />
-                ))}
-            </div>
+                ))}</CardBody>
+               </Card>
+               </Col>
+           </Row>
+           </div>
+            
             <div>
                 <TaskForm toggle={this.toggle} 
                           isModalOpen = {this.state.isModalOpen} 
