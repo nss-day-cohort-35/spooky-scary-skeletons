@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap'
 
 class SignUp extends Component {
 
@@ -7,7 +8,8 @@ class SignUp extends Component {
         name: "",
         username: "",
         email: "",
-        password: ""
+        password: "",
+        modal: true
     }
 
     // Update state whenever an input field is edited
@@ -39,47 +41,73 @@ class SignUp extends Component {
 
     }
 
+    toggle = () => {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }))
+    }
+
     render() {
+        const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>;
         return (
-            <form onSubmit={this.handleSignUp}>
-                <fieldset>
-                    <h3>Please sign up</h3>
-                    <div className="formgrid">
+            <>
+                <Modal isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className}>
+                    <Form onSubmit={this.handleSignUp}>
+                        <ModalHeader toggle={this.toggle}>Please sign up</ModalHeader>
 
-                        <label htmlFor="name">Name</label>
-                        <input onChange={this.handleFieldChange} type="text"
-                            id="name"
-                            placeholder="Name"
-                            required="" autoFocus="" /><br />
+                        <ModalBody>
+                            <div className="formgrid">
 
-                        <label htmlFor="username">Username</label>
-                        <input onChange={this.handleFieldChange} type="text"
-                            id="username"
-                            placeholder="Username"
-                            required="" autoFocus="" /><br />
+                                <FormGroup>
+                                    <Label htmlFor="name">Name</Label>
+                                    <Input onChange={this.handleFieldChange} type="text"
+                                        id="name"
+                                        placeholder="Name"
+                                        required="" autoFocus="" />
+                                </FormGroup>
 
-                        <label htmlFor="email">Email address</label>
-                        <input onChange={this.handleFieldChange} type="email"
-                            id="email"
-                            placeholder="Email address"
-                            required="" autoFocus="" /><br />
+                                <FormGroup>
+                                    <Label htmlFor="username">Username</Label>
+                                    <Input onChange={this.handleFieldChange} type="text"
+                                        id="username"
+                                        placeholder="Username"
+                                        required="" autoFocus="" />
+                                </FormGroup>
 
-                        <label htmlFor="password">Password</label>
-                        <input onChange={this.handleFieldChange} type="password"
-                            id="password"
-                            placeholder="Password"
-                            required="" /><br />
+                                <FormGroup>
+                                    <Label htmlFor="email">Email address</Label>
+                                    <Input onChange={this.handleFieldChange} type="email"
+                                        id="email"
+                                        placeholder="Email address"
+                                        required="" autoFocus="" />
+                                </FormGroup>
 
-                        <label htmlFor="password_confirm">Password confirm</label>
-                        <input onChange={this.handleFieldChange} type="password"
-                            id="password_confirm"
-                            placeholder="Password Confirm"
-                            required="" />
+                                <FormGroup>
+                                    <Label htmlFor="password">Password</Label>
+                                    <Input onChange={this.handleFieldChange} type="password"
+                                        id="password"
+                                        placeholder="Password"
+                                        required="" />
+                                </FormGroup>
 
-                    </div>
-                    <button type="submit">Sign Up</button>
-                </fieldset>
-            </form>
+                                <FormGroup>
+                                    <Label htmlFor="password_confirm">Password confirm</Label>
+                                    <Input onChange={this.handleFieldChange} type="password"
+                                        id="password_confirm"
+                                        placeholder="Password Confirm"
+                                        required="" />
+                                </FormGroup>
+
+                            </div>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button type="submit" color="secondary">
+                                Sign Up
+                            </Button>
+                        </ModalFooter>
+                    </Form>
+                </Modal>
+            </>
         )
     }
 }

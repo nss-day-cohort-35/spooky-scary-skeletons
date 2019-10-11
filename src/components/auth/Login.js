@@ -1,11 +1,15 @@
 import React, { Component } from "react"
+//import { Button } from 'reactstrap'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap'
+
 
 class Login extends Component {
 
 	// Set initial state
 	state = {
 		email: "",
-		password: ""
+		password: "",
+		modal: true
 	}
 
 	// Update state whenever an input field is edited
@@ -26,34 +30,47 @@ class Login extends Component {
 		this.props.history.push("/");
 	}
 
-	render() {
-		return (
-			<form onSubmit={this.handleLogin}>
-				<fieldset>
-					<h3>Please sign in</h3>
-					<div className="formgrid">
-
-						<label htmlFor="email">Email address</label>
-						<input onChange={this.handleFieldChange} type="email"
-							id="email"
-							placeholder="Email Address"
-							required="" autoFocus="" /><br />
-
-						<label htmlFor="password">Password</label>
-						<input onChange={this.handleFieldChange} type="password"
-							id="password"
-							placeholder="Password"
-							required="" />
-
-					</div>
-
-					<button type="submit">Sign in</button>
-
-				</fieldset>
-			</form>
-		)
+	toggle = () => {
+		this.setState(prevState => ({
+			modal: !prevState.modal
+		}))
 	}
 
+	render() {
+		return (
+			<>
+				<Modal isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className}>
+					<ModalHeader toggle={this.toggle}>Please sign in</ModalHeader>
+					<Form onSubmit={this.handleLogin}>
+						<ModalBody>
+							<div className="formgrid">
+
+								<FormGroup>
+									<Label htmlFor="email">Email address</Label>
+									<Input onChange={this.handleFieldChange} type="email"
+										id="email"
+										placeholder="Email Address"
+										required="" autoFocus="" /><br />
+								</FormGroup>
+
+								<FormGroup>
+									<Label htmlFor="password">Password</Label>
+									<Input onChange={this.handleFieldChange} type="password"
+										id="password"
+										placeholder="Password"
+										required="" />
+								</FormGroup>
+
+							</div>
+						</ModalBody>
+						<ModalFooter>
+							<Button type="submit" color="secondary">Sign in</Button>
+						</ModalFooter>
+					</Form>
+				</Modal>
+			</>
+		)
+	}
 }
 
 export default Login
