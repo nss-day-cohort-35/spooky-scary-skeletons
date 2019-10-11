@@ -12,6 +12,7 @@ import './Chat.css'
 class ClassList extends Component {
 
     state = {
+        friends: [],
         messages: [],
         newMessage: "",
         loadingStatus: false,
@@ -24,6 +25,54 @@ class ClassList extends Component {
         console.log(stateToChange);
         this.setState(stateToChange);
     };
+
+    //Friends stuff
+    getFriends() {
+        APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
+            .then((data) => {
+                this.setState({ friends: data })
+            })
+    }
+
+    addFriend = id => {
+        APIManager.searchDatabase("follows", "userId", id)
+            .then((data) => {
+                let matchFound = false;
+                data.forEach(element => {
+                    if (element.initiate === this.state.currentUserId) {
+                        matchFound = true;
+                    }
+                });
+                if (matchFound === true) {
+                    window.alert("You're already following this person, numbskull!");
+                }
+                else {
+                    const newFriend = {
+                        initiate: this.state.currentUserId,
+                        userId: id
+                    }
+                    APIManager.post(newFriend, "follows")
+                        .then(() => {
+                            APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
+                                .then((data) => {
+                                    this.setState({ friends: data })
+                                })
+                        })
+                }
+            })
+    }
+
+    deleteFriend = id => {
+        APIManager.delete(id, "follows")
+            .then(() => {
+                APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
+                    .then((newFriends) => {
+                        this.setState({
+                            friends: newFriends
+                        })
+                    })
+            })
+    }
 
     constructNewMessage = (event) => {
         console.log("constructing");
@@ -38,26 +87,40 @@ class ClassList extends Component {
             };
 
             APIManager.post(message, "messages")
-            .then(() =>{
-                APIManager.getAllAndExpand("messages","user")
-                .then((data) => {
-                    this.setState({ messages: data, loadingStatus:false, newMessage:""})
-                    ReactDOM.findDOMNode(this.refs.form).value = "";
-                })
-            }
-            )
+                .then(() => {
+                    APIManager.getAllAndExpand("messages", "user")
+                        .then((data) => {
+                            this.setState({ messages: data, loadingStatus: false, newMessage: "" })
+                            ReactDOM.findDOMNode(this.refs.form).value = "";
+                            this.scrollToBottom()
+                        })
+                }
+                )
         }
-        }
+    }
 
     componentDidMount() {
         let returnedStorage = localStorage.getItem('credentials')
         let currentUser = JSON.parse(returnedStorage)[0]
-        this.setState({currentUserId:currentUser.id})
+        this.setState({ currentUserId: currentUser.id })
 
-        APIManager.getAllAndExpand("messages","user")
+        APIManager.getAllAndExpand("messages", "user")
             .then((data) => {
                 this.setState({ messages: data })
+                APIManager.getFriends("follows", "user", "initiate", this.state.currentUserId)
+                    .then((data) => {
+                        this.setState({ friends: data })
+                    })
             })
+    }
+
+
+    scrollToBottom = () => {
+        this.refs.chatOutput.scrollIntoView({ behavior: "smooth" });
+    }
+
+    performUpdate = (event) => {
+        this.constructNewMessage(event)
     }
 
     render() {
@@ -65,17 +128,19 @@ class ClassList extends Component {
             <>
                 <div className="container-cards">
                     {this.state.messages.map(message =>
-                        <ChatEditCard key={message.id} message={message} currentUserId={this.state.currentUserId}{...this.props}/>
+                        <ChatEditCard key={message.id} message={message} addFriend={this.addFriend} currentUserId={this.state.currentUserId}{...this.props} />
                     )}
+                    <div ref="chatOutput">
+                    </div>
                 </div>
-                <div className = "container-input">
-                    <input type = "text" className = "input-box" ref="form" id = "newMessage" 
-                    onChange = {this.handleFieldChange} placeholder = "Add Message Here!"></input>
-                    <button type = "button" className = "container-button" 
-                    disabled={this.state.loadingStatus}
-                    onClick={this.constructNewMessage}>Add Message</button>
+                <div className="container-input">
+                    <input type="text" className="input-box" ref="form" id="newMessage"
+                        onChange={this.handleFieldChange} placeholder="Add Message Here!"></input>
+                    <button type="button" className="container-button"
+                        disabled={this.state.loadingStatus}
+                        onClick={this.performUpdate}>Add Message</button>
                 </div>
-                <FriendsList/>
+                <FriendsList friends={this.state.friends} getFriends={this.getFriends} addFriend={this.addFriend} deleteFriend={this.deleteFriend} />
             </>
         )
     }

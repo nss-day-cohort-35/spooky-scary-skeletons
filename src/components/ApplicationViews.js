@@ -36,7 +36,7 @@ export default class ApplicationViews extends Component {
           }
         }}
         />
-          <Route  path="/:chatId(\d+)/edit" render={props => {
+          <Route  path="chat/:chatId(\d+)/edit" render={props => {
           return <ChatEditForm {...props} />
           }}
         />

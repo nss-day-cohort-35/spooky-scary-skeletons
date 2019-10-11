@@ -4,3 +4,16 @@
     border:1px solid #ccc;
     overflow:auto; 
 }
+
+.input-box{
+    width: 70%;
+}
+
+.card-name{
+    color:rgb(161, 89, 0);
+    font-weight: bold;
+    font-size: 20px;
+}
+.card-name :hover{
+    color:rgb(226, 124, 0);
+}
