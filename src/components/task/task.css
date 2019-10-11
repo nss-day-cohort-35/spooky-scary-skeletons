@@ -1,0 +1,10 @@
+.btnAddTask {
+    margin-left: 40px;
+    margin-top: 30px;
+}
+
+.cardTask {
+    display: flex;
+    flex-direction: row;
+    
+}
