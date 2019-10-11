@@ -1,5 +1,7 @@
 import React, { Component } from "react"
+import { Link} from "react-router-dom"
 
+import {Button,Form, FormGroup, Label, Input, Card, CardBody, Row, Col} from 'reactstrap'
 class Login extends Component {
 
 	// Set initial state
@@ -28,29 +30,42 @@ class Login extends Component {
 
 	render() {
 		return (
-			<form onSubmit={this.handleLogin}>
-				<fieldset>
+			<div className="spooky-background">
+			<Row className="my-5">
+				<Col md={{size:4, offset:4}}>
+			<Card>
+			<CardBody>
+			<Form onSubmit={this.handleLogin}>
+				<FormGroup>
 					<h3>Please sign in</h3>
-					<div className="formgrid">
-
-						<label htmlFor="email">Email address</label>
-						<input onChange={this.handleFieldChange} type="email"
-							id="email"
-							placeholder="Email Address"
-							required="" autoFocus="" /><br />
-
-						<label htmlFor="password">Password</label>
-						<input onChange={this.handleFieldChange} type="password"
+				</FormGroup>
+				<FormGroup>
+					<Label htmlFor="email">Email address</Label>
+					<Input onChange={this.handleFieldChange} type="email"
+							   id="email"
+							   placeholder="Email Address"
+							   required="" autoFocus="" />
+				</FormGroup>
+				<FormGroup>
+					<Label htmlFor="password">Password</Label>
+					<Input onChange={this.handleFieldChange} type="password"
 							id="password"
 							placeholder="Password"
 							required="" />
-
-					</div>
-
-					<button type="submit">Sign in</button>
-
-				</fieldset>
-			</form>
+				</FormGroup>	
+				<FormGroup>
+					    <Button type="submit">Sign in</Button>
+				</FormGroup>
+			</Form>
+			</CardBody>
+			</Card>
+			<div className="text-center">
+			<Link className="nav-link" to="/signup">Register!</Link>
+			</div>
+			
+			</Col>
+			</Row>
+			</div>
 		)
 	}
 

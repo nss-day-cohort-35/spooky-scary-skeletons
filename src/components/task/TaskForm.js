@@ -10,7 +10,6 @@ class TaskForm extends Component {
         date: "",
         completed: false,
         loadingStaus: false,
-        modal: true
        
     }
 
@@ -38,25 +37,24 @@ class TaskForm extends Component {
                
             }
             console.log(task)
-            APIManager.post(task, "tasks").then(() => this.props.history.push('/tasks'));
+            APIManager.post(task, "tasks").then(() => {
+                this.props.toggle();
+                this.props.getData()
+            });
         }
     }
 
     //toggle = this.toggle.bind(this)
 
-    toggle = () => {
-        this.setState(prevState => ({
-            modal: !prevState.modal
-        }))
-    }
+   
 
     render() {
-         const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>;
+         const closeBtn = <button className="close" onClick={this.props.toggle}>&times;</button>;
         return(
             <>
             <Form>
-                <Modal isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className}>
-                <ModalHeader toggle={this.toggle}>ADD TASK</ModalHeader>
+                <Modal isOpen={this.props.isModalOpen} fade={false} toggle={this.props.toggle} className={this.props.className}>
+                <ModalHeader toggle={this.props.toggle}>ADD TASK</ModalHeader>
                 <ModalBody>
                 <Form>
                     <FormGroup>

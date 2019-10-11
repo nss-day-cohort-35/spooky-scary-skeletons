@@ -9,6 +9,7 @@ import TaskForm from './task/TaskForm'
 import TaskEditForm from './task/TaskEditForm'
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
+import Dashboard from "./dashboard/dashboard";
 
 
 export default class ApplicationViews extends Component {
@@ -19,7 +20,17 @@ export default class ApplicationViews extends Component {
 
         <Route exact path="/" render={props => {
           if (this.props.user) {
-            return <ChatList {...props} />
+            return <Dashboard {...props} />
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+        />
+
+        {/* ---------Chat---------*/}
+        <Route path="/chat" render={props => {
+          if (this.props.user) {
+            return <ChatList  {...props} />
           } else {
             return <Redirect to="/login" />;
           }

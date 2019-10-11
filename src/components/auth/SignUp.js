@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import {Button,Form, FormGroup, Label, Input, Card, CardBody, Row, Col} from 'reactstrap'
 
 class SignUp extends Component {
 
@@ -41,45 +42,58 @@ class SignUp extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSignUp}>
-                <fieldset>
-                    <h3>Please sign up</h3>
-                    <div className="formgrid">
-
-                        <label htmlFor="name">Name</label>
-                        <input onChange={this.handleFieldChange} type="text"
+            <Row className="my-5">
+                <Col md={{size:4, offset:4}}>
+                <Card>
+                    <CardBody>
+            <Form onSubmit={this.handleSignUp}>
+              <FormGroup>
+                     <h3>Please sign up</h3>
+              </FormGroup>
+              <FormGroup>
+                    <Label htmlFor="name">Name</Label>
+                    <Input onChange={this.handleFieldChange} type="text"
                             id="name"
                             placeholder="Name"
-                            required="" autoFocus="" /><br />
-
-                        <label htmlFor="username">Username</label>
-                        <input onChange={this.handleFieldChange} type="text"
+                            required="" autoFocus=""/>
+              </FormGroup>
+              <FormGroup>
+                    <Label htmlFor="username">Username</Label>
+                    <Input onChange={this.handleFieldChange} type="text"
                             id="username"
                             placeholder="Username"
-                            required="" autoFocus="" /><br />
-
-                        <label htmlFor="email">Email address</label>
-                        <input onChange={this.handleFieldChange} type="email"
+                            required="" autoFocus="" />
+              </FormGroup>
+              <FormGroup>
+                    <Label htmlFor="email">Email address</Label>
+                    <Input onChange={this.handleFieldChange} type="email"
                             id="email"
                             placeholder="Email address"
-                            required="" autoFocus="" /><br />
-
-                        <label htmlFor="password">Password</label>
-                        <input onChange={this.handleFieldChange} type="password"
+                            required="" autoFocus="" />
+              </FormGroup>
+              <FormGroup>
+                    <Label htmlFor="password">Password</Label>
+                    <Input onChange={this.handleFieldChange} type="password"
                             id="password"
                             placeholder="Password"
-                            required="" /><br />
-
-                        <label htmlFor="password_confirm">Password confirm</label>
-                        <input onChange={this.handleFieldChange} type="password"
+                            required="" />
+              </FormGroup>
+              <FormGroup>
+                    <Label htmlFor="password_confirm">Password confirm</Label>
+                    <Input onChange={this.handleFieldChange} type="password"
                             id="password_confirm"
                             placeholder="Password Confirm"
                             required="" />
-
-                    </div>
-                    <button type="submit">Sign Up</button>
-                </fieldset>
-            </form>
+              </FormGroup>
+              <FormGroup>
+                    <Button type="submit">Sign Up</Button>
+              </FormGroup>
+                                         
+            </Form>
+            </CardBody>
+            </Card>
+            </Col>
+            </Row>
         )
     }
 }
