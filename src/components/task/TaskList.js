@@ -128,7 +128,7 @@ class TaskList extends Component {
                    Add Task
                 </Button>
             </div>
-            <div className="mt-5 mx-5">
+            <div className="mt-1 mx-5">
            <Row className="cardTask">
                <Col md="6">
                <Card>
