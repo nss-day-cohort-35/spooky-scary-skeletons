@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import API from '../../modules/APIManager';
 
 // logged in user
 let currentUser = "1"
@@ -10,7 +11,7 @@ class EntryCard extends Component {
         // populate edit and delete buttons if userId = currentUser
         if (`${this.props.cardContent.userId}` === currentUser) {
             editButton = <button type="button" onClick={() => {this.props.history.push(`/${this.props.database}/${this.props.cardContent.id}/edit`)}}>Edit</button>
-            deleteButton = <button type="button" disabled={false}>Delete</button> 
+            deleteButton = <button type="button" onClick={(event) => this.props.deleteEntry(`${this.props.cardContent.id}`, `${this.props.database}`)} disabled={false}>Delete</button> 
         }
         // return single entry
         return (
