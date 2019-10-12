@@ -1,8 +1,16 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
+import ChatList from './chatroom/ChatList'
+import ChatEditForm from './chatroom/ChatEditForm'
 import EntryList from './Feed/EntryList'
 import SearchPage from './Feed/SearchPage'
+import TaskList from './task/TaskList'
+import TaskForm from './task/TaskForm'
+import TaskEditForm from './task/TaskEditForm'
 import Login from "./auth/Login";
+import SignUp from "./auth/SignUp";
+import Dashboard from "./dashboard/dashboard";
+
 
 export default class ApplicationViews extends Component {
 
@@ -10,10 +18,26 @@ export default class ApplicationViews extends Component {
     return (
       <React.Fragment>
 
-        <Route
-          exact path="/" render={props => {
-            return null
-            // Remove null and return the component which will show news articles
+        <Route exact path="/" render={props => {
+          if (this.props.user) {
+            return <Dashboard {...props} />
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+        />
+
+        {/* ---------Chat---------*/}
+        <Route path="/chat" render={props => {
+          if (this.props.user) {
+            return <ChatList  {...props} />
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+        />
+          <Route  path="chat/:chatId(\d+)/edit" render={props => {
+          return <ChatEditForm {...props} />
           }}
         />
         {/* ---------articles---------*/}
@@ -55,22 +79,44 @@ export default class ApplicationViews extends Component {
 
         {/* ---------tasks---------*/}
         <Route
-          path="/tasks" render={props => {
+           exact path="/tasks" render={props => {
             if (this.props.user) {
-              return null
-              {/*return <TasksList {...props} />;
-            */}
+              return <TaskList database="tasks" {...props} />
             } else {
               return <Redirect to="/login" />;
             }
           }}
-        />
-        {/* ---------login---------*/}
+        />  
         <Route
-          path="/login" render={props => {
-            return <Login setUser={this.props.setUser} {...props} />;
+          path="/tasks/new" render={props => {
+            if(this.props.user) {
+              return <TaskForm database="tasks" {...props} />
+            } else {
+              return <Redirect to="/login" />
+            }
+          }}
+          />  
+          <Route  path="/tasks/:taskId(\d+)/edit" render={props => {
+          return <TaskEditForm {...props} />
           }}
         />
+
+        {/* ---------login---------*/}
+        <Route path="/login" render={props => {
+          if (!this.props.user) {
+            return <Login setUser={this.props.setUser} {...props} />
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }} />
+
+        <Route path="/signup" render={props => {
+          if (!this.props.user) {
+            return <SignUp newUser={this.props.newUser} {...props} />
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }} />
 
       </React.Fragment>
     );

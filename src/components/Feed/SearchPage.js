@@ -47,6 +47,8 @@ class SearchPage extends Component {
                 entryObject.date = moment().format("lll")
                 console.log(entryObject)
                 API.post(entryObject, `${this.props.database}`)
+                this.props.history.push(`/${this.props.database}`)
+                
             }
         }
         // search newsAPI or Eventbrite for something to post

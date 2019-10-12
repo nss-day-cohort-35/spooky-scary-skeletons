@@ -18,12 +18,54 @@ const API = {
   getAll: (database) => {
     return fetch(`${remoteURL}/${database}`).then(e => e.json())
   },
+  getAllAndExpand(database, expanded) {
+    return fetch(`${remoteURL}/${database}?_expand=${expanded}`).then(e => e.json())
+  },
   getAndFilter: (database, key, value) => {
     return fetch(`${remoteURL}/${database}?${key}=${value}`).then(e => e.json())
   },
   getFeed: (database, currentUser, friendsIdsString) => {
     return fetch(`${remoteURL}/${database}?_expand=user&userId=${currentUser}${friendsIdsString}&_sort=date&_order=asc`).then(e => e.json())
   },
+  // --------------------------------------------
+  getRecord: (input) => {
+    let query = ""
+
+    if (input.table) {
+      query = `${input.table}`
+    }
+    if (input.email) {
+      query += `/?email=${input.email}`
+    }
+    if (input.password) {
+      query += `&password=${input.password}`
+    } else {
+      query = ""
+    }
+
+    //console.log("API.getRecord.query: ", query)
+
+    return fetch(`${remoteURL}/${query}`)
+      .then(response => response.json())
+  },
+  putRecord(table, input) {
+    let query = ""
+
+    if (table) {
+      query = `${table}`
+    }
+    //console.log("API.putRecord.query: ", query)
+
+    return fetch(`${remoteURL}/${query}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(input)
+    })
+      .then(response => response.json())
+  },
+  // ----------------------------------------------
   delete: (id, database) => {
     return fetch(`${remoteURL}/${database}/${id}`, {
       method: "DELETE"
@@ -48,10 +90,10 @@ const API = {
       body: JSON.stringify(editedObject)
     }).then(data => data.json());
   },
-  getFriend: (id, database, expanded, type, initiate) => {
-    return fetch(`${remoteURL}/${database}/${id}?_expand=${expanded}&${type}=${initiate}`).then(e => e.json())
+  getFriends: (database, expanded, type, initiate) => {
+    return fetch(`${remoteURL}/${database}?_expand=${expanded}&${type}=${initiate}`).then(e => e.json())
   },
-  searchDatabase: (search, database, type) => {
+  searchDatabase: (database, type, search) => {
     return fetch(`${remoteURL}/${database}?${type}_like=${search}`)
       .then(result => result.json())
   },
@@ -77,6 +119,16 @@ const API = {
         return parsedObject.events;
       });
   },
+  completeTask: (id) => {
+    let obj = {"completed": true}
+    return fetch(`${remoteURL}/tasks/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(obj)
+    }).then(data => data.json());
+  }
 }
 
 export default API;
