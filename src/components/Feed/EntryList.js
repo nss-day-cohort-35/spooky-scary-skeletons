@@ -20,7 +20,8 @@ class EntryList extends Component {
     getEntries(arrayOfFollows) {
         let userIdString = ""
         arrayOfFollows.forEach(follow => { userIdString += `&userId=${follow.userId}` })
-        API.getFeed(`${this.props.database}`, `${currentUser}`, `${userIdString}`).then(response => this.setState({ entries: [...response] }))
+        API.getFeed(`${this.props.database}`, `${currentUser}`, `${userIdString}`)
+            .then(response => this.setState({ entries: [...response].sort((a,b)=> new Date(b.date) - new Date(a.date))}))
     }
     // 3). return a card for each article or event of all the people you follow. pass content from entries State as props 
     render() {

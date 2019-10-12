@@ -22,6 +22,7 @@ class EntryCard extends Component {
                 <img className="entry-img" src={`${this.props.cardContent.image}`} alt=""></img>
                 <h5>{this.props.cardContent.title}</h5>
                 <p>{this.props.cardContent.description}</p>
+                <a href={`${this.props.cardContent.url}`} alt="">{`${this.props.cardContent.url}`}</a>
                 {editButton}{deleteButton}
             </div>
         )
