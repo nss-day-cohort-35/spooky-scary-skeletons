@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import APIManager from '../../modules/APIManager'
 import {Button} from 'reactstrap'
-
+import moment from "moment";
 
 
 class TaskComplete extends Component {
@@ -12,7 +12,7 @@ class TaskComplete extends Component {
             <>
             <div>
                 <h5>{this.props.task.task}</h5>
-                <p>Due By: {this.props.task.date}</p>
+                <p>Due By: {moment(this.props.task.date).format("ll")}</p>
               
             </div>
             <div className="mb-2">

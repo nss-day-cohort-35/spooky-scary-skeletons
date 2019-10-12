@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import APIManager from '../../modules/APIManager';
 import {Table} from 'reactstrap'
+import moment from "moment";
 
 
 
@@ -31,16 +32,18 @@ class ToDo extends Component {
         console.log('TASK LIST: Render');
         return(
             <>
-            
+             <Table striped hover size="sm">
+                 <tbody>
             {this.state.unfinishedTasks.map(task => (
-                <Table striped hover size="sm">
-                    <tr>
+               
+                    <tr key={task.id}>
                         <td>{task.task}</td>
-                        <td>{task.date}</td>
+                        <td>{moment(task.date).format("ll")}</td>
                     </tr>
-                 </Table>
+                 
                 ))}
-           
+                </tbody>
+            </Table>
             </>
         )
     }

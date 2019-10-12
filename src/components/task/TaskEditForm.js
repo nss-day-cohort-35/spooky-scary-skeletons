@@ -51,6 +51,7 @@ class TaskEditForm extends Component{
                         <Label htmlFor="completed">Complete</Label>
                         <Input type="checkbox" onChange={this.handleCheck}  id="completed" checked={this.state.completed}></Input>
                     </FormGroup> */}
+                   
                     <InputGroup>
                          <InputGroupAddon addonType="prepend">
                          <InputGroupText>

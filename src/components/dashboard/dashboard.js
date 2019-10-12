@@ -2,13 +2,14 @@ import React, {Component} from 'react'
 import APIManager from '../../modules/APIManager'
 import {Button,Row, Col, Card, CardHeader, CardBody} from 'reactstrap'
 import ToDo from './todo'
+import Chat from './chat'
 class Dashboard extends Component{
     state = {
         
        
     }
 
-    
+  
     
     componentDidMount(){
         
@@ -33,7 +34,7 @@ class Dashboard extends Component{
                    <Card>
                         <CardHeader>TO-DO</CardHeader>
                       
-                            <ToDo></ToDo>
+                            <ToDo/>
                        
                        </Card>
                    </Col>
@@ -51,9 +52,7 @@ class Dashboard extends Component{
                    <Col md="5">
                    <Card>
                         <CardHeader>Chat</CardHeader>
-                        <CardBody>
-                            
-                        </CardBody>
+                            <Chat/>
                        </Card>
                    </Col>
                 </Row>  
