@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import API from '../../modules/APIManager'
 import EntryCard from './EntryCard'
 import './Feed.css'
+import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap'
 
 
 
@@ -45,7 +46,17 @@ class EntryList extends Component {
                     <button type="button" onClick={() => { this.props.history.push(`/${this.props.database}/new`) }}>Add</button>
                 </section>
                 <div className="container-entry-list">
-                    {this.state.entries.map((entry, i) => <EntryCard key={i} cardContent={entry} deleteEntry={deleteEntry} {...this.props} />)}
+                    <Row md="6">
+                        <Col>
+                            {this.state.entries.map((entry, i) =>
+                                <Card style={{ width: "600px", overflow: "hidden", margin: "20px" }}>
+                                    <CardBody>
+                                        <EntryCard key={i} cardContent={entry} deleteEntry={deleteEntry} {...this.props} />
+                                    </CardBody>
+                                </Card>
+                            )}
+                        </Col>
+                    </Row>
                 </div>
             </>
         )

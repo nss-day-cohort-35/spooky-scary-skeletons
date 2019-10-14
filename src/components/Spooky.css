@@ -1,3 +1,25 @@
-.result-img {
-    max-width: 500px;
+.entry-img, .result-img {
+    max-width: 600px;
+    align-self: center;
+}
+
+.container-entry-list, .container-search-page {
+    display: flex;
+    justify-content: center;
+}
+
+.entry-message, .entry-description {
+    font-family: Sans-Serif;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 1.38;
+    text-shadow: none;
+}
+
+.entry-link {
+    font-family: Sans-Serif;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 1.38;
+    text-shadow: none;
 }
