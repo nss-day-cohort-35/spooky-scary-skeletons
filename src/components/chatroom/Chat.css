@@ -18,8 +18,9 @@
     font-weight: bold;
     font-size: 30px;
 }
-.chat-card-name :hover{
+.chat-card-name:hover{
     color:rgb(226, 124, 0);
+    cursor: pointer;
 }
 .chat-date{
     font-size: 14px;
