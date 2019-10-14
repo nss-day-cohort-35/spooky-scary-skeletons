@@ -39,7 +39,7 @@ class TaskForm extends Component {
             console.log(task)
             APIManager.post(task, "tasks").then(() => {
                 this.props.toggle();
-                this.props.getData()
+                this.props.getData()  
             });
         }
     }
