@@ -21,11 +21,11 @@ class EntryCard extends Component {
 
                 <p className="card-user-name">{`${this.props.cardContent.user.name}`}</p>
                 <p className="card-date">{`${this.props.cardContent.date}`}</p>
-                <p className="entry-message">{`${this.props.cardContent.message}`}</p>
+                <p className="normal-text">{`${this.props.cardContent.message}`}</p>
                 <img className="entry-img" src={`${this.props.cardContent.image}`} alt=""></img>
                 <h5>{this.props.cardContent.title}</h5>
-                <p className="entry-description">{this.props.cardContent.description}</p>
-                <a className="entry-link" href={`${this.props.cardContent.url}`} alt="">{`${this.props.cardContent.url}`}</a>
+                <p className="normal-text">{this.props.cardContent.description}</p>
+                <a className="card-link" href={`${this.props.cardContent.url}`} alt="">{`${this.props.cardContent.url}`}</a>
                 <div>{editButton}{deleteButton}</div>
 
             </div>

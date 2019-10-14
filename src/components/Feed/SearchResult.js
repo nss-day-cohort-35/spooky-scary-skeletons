@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Feed.css'
+import '../Spooky.css'
 class SearchResult extends Component {
     render() {
         let cardBody;
@@ -13,9 +14,9 @@ class SearchResult extends Component {
                     <div>
                         <img className="result-img" src={`${this.props.content.urlToImage}`} alt=""></img>
                         <h5>{this.props.content.title}</h5>
-                        <p>{this.props.content.description}</p>
-                        <a href={`${this.props.content.url}`} alt="">{`${this.props.content.url}`}</a>
-                        <input type="text" required onKeyPress={(evt) => this.props.postResult.article(evt, this.props.content)} placeholder={'Write something about this...'} />
+                        <p className="normal-text">{this.props.content.description}</p>
+                        <a className="card-link" href={`${this.props.content.url}`} alt="">{`${this.props.content.url}`}</a>
+                        <input className="write-something" type="text" required onKeyPress={(evt) => this.props.postResult.article(evt, this.props.content)} placeholder={'Write something about this...'} />
                     </div>
             }
         }
@@ -29,9 +30,9 @@ class SearchResult extends Component {
                     <div className="result-card">
                         <img className="result-img" src={`${this.props.content.logo.url}`} alt=""></img>
                         <h5>{`${this.props.content.name.text}`}</h5>
-                        <p>{this.props.content.description.text}</p>
-                        <a href={`${this.props.content.url}`} alt="">{`${this.props.content.url}`}</a>
-                        <input type="text" required onKeyPress={(evt) => this.props.postResult.event(evt, this.props.content)} placeholder={'Write Something About this ...'} />
+                        <p className="normal-text">{this.props.content.description.text}</p>
+                        <a className="card-link" href={`${this.props.content.url}`} alt="">{`${this.props.content.url}`}</a>
+                        <input className="write-something" type="text" required onKeyPress={(evt) => this.props.postResult.event(evt, this.props.content)} placeholder={'Write Something About this ...'} />
                     </div>
             }
         }

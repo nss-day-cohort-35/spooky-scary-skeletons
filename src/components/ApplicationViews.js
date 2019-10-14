@@ -18,7 +18,7 @@ export default class ApplicationViews extends Component {
     return (
       <React.Fragment>
 
-        <Route exact path="/" render={props => {
+        <Route exact path="/dashboard" render={props => {
           if (this.props.user) {
             return <Dashboard {...props} />
           } else {
