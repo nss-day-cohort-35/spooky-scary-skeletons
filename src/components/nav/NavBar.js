@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 class NavBar extends Component {
 
-    handleLogout = () => {
+    handleLogout = (e) => {
         this.props.clearUser();
         this.props.history.push('/');
     };
