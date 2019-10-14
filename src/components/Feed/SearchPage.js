@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import API from '../../modules/APIManager'
 import SearchResult from './SearchResult'
 import moment from "moment";
+import './Feed.css'
 
-// logged in user
-let currentUser
-if (localStorage) {currentUser = JSON.parse(localStorage.getItem('credentials'))[0]}
+
 class SearchPage extends Component {
     state = {
         searchResults: []
@@ -43,13 +42,16 @@ class SearchPage extends Component {
             },
             // add userId, date, and typed input from SearchResult.js to the entryObject and post to JSON
             post: (message) => {
+                // logged in user
+                let returnedStorage = localStorage.getItem('credentials')
+                let currentUser = JSON.parse(returnedStorage)[0].id
                 entryObject.message = message
                 entryObject.userId = currentUser
                 entryObject.date = moment().format("lll")
                 console.log(entryObject)
                 API.post(entryObject, `${this.props.database}`)
                 this.props.history.push(`/${this.props.database}`)
-                
+
             }
         }
         // search newsAPI or Eventbrite for something to post
@@ -63,7 +65,7 @@ class SearchPage extends Component {
             <>
                 <h4>Search {this.props.database}</h4>
                 <input type="text" required onKeyPress={searchAPI} id={'searchInput'} placeholder={'search'} />
-                <div className="search-results-cards">
+                <div className="container-search-page">
                     {this.state.searchResults.map((result, i) => <SearchResult key={`result-${i}`} content={result} postResult={postResult} {...this.props} />)}
                 </div>
             </>

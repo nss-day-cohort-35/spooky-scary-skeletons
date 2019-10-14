@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Feed.css'
 class SearchResult extends Component {
     render() {
         let cardBody;
@@ -25,7 +26,7 @@ class SearchResult extends Component {
             keys.forEach(key => { if (this.props.content[key] === null) { hasAllKeys = false } })
             if (hasAllKeys) {
                 cardBody =
-                    <div>
+                    <div className="result-card">
                         <img className="result-img" src={`${this.props.content.logo.url}`} alt=""></img>
                         <h5>{`${this.props.content.name.text}`}</h5>
                         <p>{this.props.content.description.text}</p>
