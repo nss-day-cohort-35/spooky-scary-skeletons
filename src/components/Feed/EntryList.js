@@ -3,7 +3,8 @@ import API from '../../modules/APIManager'
 import EntryCard from './EntryCard'
 
 // logged in user
-let currentUser = "1"
+let currentUser
+if (localStorage) {currentUser = JSON.parse(localStorage.getItem('credentials'))[0]}
 class EntryList extends Component {
     state = {
         entries: []

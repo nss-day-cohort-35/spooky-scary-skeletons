@@ -4,7 +4,8 @@ import SearchResult from './SearchResult'
 import moment from "moment";
 
 // logged in user
-let currentUser = "1"
+let currentUser
+if (localStorage) {currentUser = JSON.parse(localStorage.getItem('credentials'))[0]}
 class SearchPage extends Component {
     state = {
         searchResults: []
