@@ -50,5 +50,7 @@ body {
 .spider-web:nth-of-type(odd)::after {
   background-position: right 10px top;
 }
+
+
 /*
 */
