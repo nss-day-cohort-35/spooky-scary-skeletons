@@ -3,6 +3,7 @@ import API from '../../modules/APIManager'
 import SearchResult from './SearchResult'
 import moment from "moment";
 import './Feed.css'
+import { Row, Col, Card, CardHeader, CardBody } from 'reactstrap'
 
 
 class SearchPage extends Component {
@@ -66,7 +67,18 @@ class SearchPage extends Component {
                 <h4>Search {this.props.database}</h4>
                 <input type="text" required onKeyPress={searchAPI} id={'searchInput'} placeholder={'search'} />
                 <div className="container-search-page">
-                    {this.state.searchResults.map((result, i) => <SearchResult key={`result-${i}`} content={result} postResult={postResult} {...this.props} />)}
+                    <Row md="6">
+                        <Col>
+                            {this.state.searchResults.map((result, i) =>
+                                <Card style={{ width: "600px", overflow: "hidden", margin: "20px" }}>
+                                    <CardBody>
+                                        <SearchResult key={`result-${i}`} content={result} postResult={postResult} {...this.props} />
+                                    </CardBody>
+                                </Card>
+                            )}
+                        </Col>
+                    </Row>
+
                 </div>
             </>
         )

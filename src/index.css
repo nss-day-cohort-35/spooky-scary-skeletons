@@ -16,6 +16,8 @@ code {
 body {
   
   background-image: url("images/HalloweenBG1.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 
   /*
   background-image: url("images/HalloweenBG1.png");
@@ -24,7 +26,7 @@ body {
   */
 
   font-family: 'Creepster', serif;
-  font-size: 24px;
+  font-size: 20px;
   text-shadow: 4px 4px 4px #aaa;
 }
 /*

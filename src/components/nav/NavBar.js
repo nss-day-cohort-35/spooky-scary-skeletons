@@ -18,7 +18,7 @@ class NavBar extends Component {
                     {this.props.user ? (
                         <>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/">Dashboard</Link>
+                                <Link className="nav-link" to="/dashboard">Dashboard</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/chat">Chatroom</Link>
