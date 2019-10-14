@@ -18,6 +18,7 @@ class EntryList extends Component {
         this.getFollows(currentUser)
     }
     getFollows(currentUser) {
+        console.log("get follows")
         API.getAndFilter("follows", "initiate", currentUser)
             .then(arrayOfFollows => this.getEntries(arrayOfFollows, currentUser))
     }
@@ -35,7 +36,7 @@ class EntryList extends Component {
             const confirmDelete = window.confirm("Do you want to delete this?")
             if (confirmDelete) {
                 API.delete(id, database)
-                    .then(e => this.getFollows())
+                    .then(e => this.getFollows(JSON.parse(localStorage.getItem('credentials'))[0].id))
             }
         }
         return (
