@@ -36,9 +36,9 @@ export default class ApplicationViews extends Component {
           }
         }}
         />
-          <Route  path="chat/:chatId(\d+)/edit" render={props => {
+        <Route path="chat/:chatId(\d+)/edit" render={props => {
           return <ChatEditForm {...props} />
-          }}
+        }}
         />
         {/* ---------articles---------*/}
         <Route exact path="/articles" render={props => {
@@ -60,12 +60,12 @@ export default class ApplicationViews extends Component {
         />
         {/* ---------events---------*/}
         <Route exact path="/events" render={props => {
-            if (this.props.user) {
-              return <EntryList database="events" {...props} />
-            } else {
-              return <Redirect to="/login" />;
-            }
-          }}
+          if (this.props.user) {
+            return <EntryList database="events" {...props} />
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
         />
 
         <Route path="/events/new" render={props => {
@@ -79,26 +79,26 @@ export default class ApplicationViews extends Component {
 
         {/* ---------tasks---------*/}
         <Route
-           exact path="/tasks" render={props => {
+          exact path="/tasks" render={props => {
             if (this.props.user) {
               return <TaskList database="tasks" {...props} />
             } else {
               return <Redirect to="/login" />;
             }
           }}
-        />  
+        />
         <Route
           path="/tasks/new" render={props => {
-            if(this.props.user) {
+            if (this.props.user) {
               return <TaskForm database="tasks" {...props} />
             } else {
               return <Redirect to="/login" />
             }
           }}
-          />  
-          <Route  path="/tasks/:taskId(\d+)/edit" render={props => {
+        />
+        <Route path="/tasks/:taskId(\d+)/edit" render={props => {
           return <TaskEditForm {...props} />
-          }}
+        }}
         />
 
         {/* ---------login---------*/}
@@ -115,6 +115,12 @@ export default class ApplicationViews extends Component {
             return <SignUp newUser={this.props.newUser} {...props} />
           } else {
             return <Redirect to="/login" />;
+          }
+        }} />
+
+        <Route exact path="/" render={props => {
+          if (this.props.user) {
+            return <Dashboard {...props} />
           }
         }} />
 
