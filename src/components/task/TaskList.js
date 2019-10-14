@@ -48,7 +48,8 @@ class TaskList extends Component {
     }
 
     handleDelete = (id) => {
-        APIManager.delete(id, "tasks").then(() => this.getData())
+        const confirmDelete = window.confirm("Do you want to delete this?")
+        if(confirmDelete) {APIManager.delete(id, "tasks").then(() => this.getData())}
     }
 
     handleComplete = (id) => {
