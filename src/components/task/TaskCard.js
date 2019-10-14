@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-
 import {Button} from 'reactstrap'
-import 'font-awesome/css/font-awesome.min.css';
 import moment from "moment";
 
 
