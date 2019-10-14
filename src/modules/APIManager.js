@@ -16,7 +16,7 @@ const API = {
     return fetch(`${remoteURL}/${database}/${id}?_expand=${expanded}`).then(e => e.json())
   },
   getAll: (database) => {
-    return fetch(`${remoteURL}/${database}`).then(e => e.json())
+    return fetch(`${remoteURL}/${database}?_sort=date&_order=asc`).then(e => e.json())
   },
   getAllAndExpand(database, expanded) {
     return fetch(`${remoteURL}/${database}?_expand=${expanded}`).then(e => e.json())

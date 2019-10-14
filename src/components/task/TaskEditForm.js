@@ -47,10 +47,7 @@ class TaskEditForm extends Component{
                         <Label htmlFor="date">Date</Label>
                         <Input type="date" required onChange={this.props.handleFieldChange} value={this.props.date} id="date"></Input>
                     </FormGroup>
-                    {/* <FormGroup>
-                        <Label htmlFor="completed">Complete</Label>
-                        <Input type="checkbox" onChange={this.handleCheck}  id="completed" checked={this.state.completed}></Input>
-                    </FormGroup> */}
+                                      
                     <InputGroup>
                          <InputGroupAddon addonType="prepend">
                          <InputGroupText>

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import APIManager from '../../modules/APIManager'
-import {Button, Card, CardBody, CardFooter} from 'reactstrap'
-
+import {Button} from 'reactstrap'
+import moment from "moment";
 
 
 class TaskCard extends Component {
@@ -13,7 +12,7 @@ class TaskCard extends Component {
             
             <div>
                 <h5>{this.props.task.task}</h5>
-                <p>Due By: {this.props.task.date}</p>
+                <p>Due By: {moment(this.props.task.date).format("ll")}</p>
               
             </div>
             <div className="mb-2">
@@ -21,6 +20,7 @@ class TaskCard extends Component {
                 <Button type="button" color="secondary" size="sm" className="mx-1"
             		  onClick={() => {this.props.handleEdit(this.props.task.id)}}>Edit
           		</Button>
+                 
                 <Button type='button' color="secondary" size="sm" className="mx-1"
                       onClick={() => this.props.handleDelete(this.props.task.id)}>
 						Delete

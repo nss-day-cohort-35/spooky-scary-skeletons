@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 
 
+
 class NavBar extends Component {
 
     handleLogout = () => {
@@ -32,7 +33,7 @@ class NavBar extends Component {
                                 <Link className="nav-link" to="/tasks">Tasks</Link>
                             </li>
                             <li>
-                                <span className="nav-link" onClick={this.handleLogout}>Logout</span>
+                                <span className="nav-link " onClick={this.handleLogout}>Logout</span>
                             </li>
                         </>
                     ) : (
