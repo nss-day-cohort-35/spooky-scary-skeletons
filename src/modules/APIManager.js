@@ -101,9 +101,23 @@ const API = {
     return fetch('https://newsapi.org/v2/everything?' +
       `q=${typedInput}&` +
       'from=2019-10-09&' +
-      'sortBy=popularity&' +
+      // 'sortBy=popularity&' +
       'apiKey=dff143f1fe5946c2a7a56f338917b58c')
       .then(result => result.json())
+      .then(parsedObject => {
+        return parsedObject.articles;
+      });
+  },
+  events: (typedInput) => {
+    return fetch(`https://www.eventbriteapi.com/v3/events/search/?q=${typedInput}&location.address=nashville&token=U4TQ4FVUMOLUNIZEGIQX`, {
+      headers: {
+        Accept: "application/json"
+      }
+    })
+      .then(result => result.json())
+      .then(parsedObject => {
+        return parsedObject.events;
+      });
   },
   completeTask: (id) => {
     let obj = {"completed": true}

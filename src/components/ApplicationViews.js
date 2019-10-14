@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import ChatList from './chatroom/ChatList'
 import ChatEditForm from './chatroom/ChatEditForm'
 import EntryList from './Feed/EntryList'
+import SearchPage from './Feed/SearchPage'
 import TaskList from './task/TaskList'
-import EntryForm from './Feed/EntryForm'
 import TaskForm from './task/TaskForm'
 import TaskEditForm from './task/TaskEditForm'
 import Login from "./auth/Login";
@@ -40,9 +40,8 @@ export default class ApplicationViews extends Component {
           return <ChatEditForm {...props} />
           }}
         />
-
         {/* ---------articles---------*/}
-        <Route path="/articles" render={props => {
+        <Route exact path="/articles" render={props => {
           if (this.props.user) {
             return <EntryList database="articles" {...props} />
           } else {
@@ -53,15 +52,14 @@ export default class ApplicationViews extends Component {
 
         <Route path="/articles/new" render={props => {
           if (this.props.user) {
-            return <EntryForm database="articles" {...props} />
+            return <SearchPage database="articles" {...props} />
           } else {
             return <Redirect to="/login" />;
           }
         }}
         />
         {/* ---------events---------*/}
-        <Route
-          path="/events" render={props => {
+        <Route exact path="/events" render={props => {
             if (this.props.user) {
               return <EntryList database="events" {...props} />
             } else {
@@ -69,6 +67,16 @@ export default class ApplicationViews extends Component {
             }
           }}
         />
+
+        <Route path="/events/new" render={props => {
+          if (this.props.user) {
+            return <SearchPage database="events" {...props} />
+          } else {
+            return <Redirect to="/login" />;
+          }
+        }}
+        />
+
         {/* ---------tasks---------*/}
         <Route
            exact path="/tasks" render={props => {
